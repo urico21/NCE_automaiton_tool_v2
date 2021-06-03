@@ -173,26 +173,26 @@ public class nce_create {
 							                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
 				                	  
 						                	  // STATUS: ES INDICATOR TO YES
-						                	  do {statusElemWait();currentStatus = statusWait();
-					                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+projIDStr+"] >> " + currentStatus);
-					                		  if(currentStatus.trim().contains("PLM Approved")) {
-					                			  indicatorES().click();
-					                			  moveToSp().click();
-					                		  } else {
-					                			  error="[Error] Approval Button Not Activated"; 
-					                		  }
-						                	} while (currentStatus.trim().contains("PLM Approved"));
+//						                	  do {statusElemWait();currentStatus = statusWait();
+//					                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+projIDStr+"] >> " + currentStatus);
+//					                		  if(currentStatus.trim().contains("PLM Approved")) {
+//					                			  indicatorES().click();
+//					                			  moveToSp().click();
+//					                		  } else {
+//					                			  error="[Error] Approval Button Not Activated"; 
+//					                		  }
+//						                	} while (currentStatus.trim().contains("PLM Approved"));
 				                	  
 						                	  
 						                	  //STATUS: ES APPROVAL
-						                	  do {statusElemWait();currentStatus = statusWait();
-					                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+projIDStr+"] >> " + currentStatus);
-					                		  if(approveBtnES() && currentStatus.trim().contains("Pending ES Approval")) {
-					                			  approveES().click();
-					                		  } else {
-					                			  error="[Error] Approval Button Not Activated"; 
-					                		  }
-						                	} while (currentStatus.trim().contains("Pending ES Approval"));
+//						                	  do {statusElemWait();currentStatus = statusWait();
+//					                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+projIDStr+"] >> " + currentStatus);
+//					                		  if(approveBtnES() && currentStatus.trim().contains("Pending ES Approval")) {
+//					                			  approveES().click();
+//					                		  } else {
+//					                			  error="[Error] Approval Button Not Activated"; 
+	//				                		  }
+//						                	} while (currentStatus.trim().contains("Pending ES Approval"));
 				                	  
 						                	  
 							                  // STATUS: PLM APPROVED
