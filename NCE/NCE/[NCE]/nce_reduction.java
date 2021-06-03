@@ -540,8 +540,8 @@ public class nce_reduction {
             WebElement username = driver.findElement(By.name("username"));
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
-	    	username.sendKeys("jdionisio4");
-	    	password.sendKeys("Jcsd@1206");
+	    	username.sendKeys("ernest.nebre");
+	    	password.sendKeys("Stereorama14!");
 	    	loginBtn.click();
 			break;
 		} catch (Exception e) {
