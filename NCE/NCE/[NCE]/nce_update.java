@@ -130,11 +130,25 @@ public class nce_update {
 														reworkPLM().click();	
 														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REWORK ON PLM");
 													}else {
-														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CFREDENTIAL");
+														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CREDENTIAL");
 														error="CREDENTIAL";break;
 													}
 													
 												}
+							                	
+							                	System.out.println("REQUEST STATUS: "+currentStatus);
+							                	if (currentStatus.trim().contains("Ready for Approval") || currentStatus.trim().contains("PLM Approved")) {
+							                		reworkOnPLM();
+													if (reworkOnPLM()) {
+														reworkPLM().click();	
+														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REWORK ON PLM");
+													}else {
+														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CREDENTIAL");
+														error="CREDENTIAL";break;
+													}
+													
+												}
+							                	
 					                	      	statusElemWait();
 					                	      	//STATUS WAIT
 							                	currentStatus = statusWait();

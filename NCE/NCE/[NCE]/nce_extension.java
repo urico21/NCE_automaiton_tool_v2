@@ -134,11 +134,25 @@ public class nce_extension {
 														reworkPLM().click();	
 														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REWORK ON PLM");
 													}else {
-														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CFREDENTIAL");
+														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CREDENTIAL");
 														error="CREDENTIAL";break;
 													}
 													
 												}
+							                	
+							                	System.out.println("REQUEST STATUS: "+currentStatus);
+							                	if (currentStatus.trim().contains("Ready for Approval") || currentStatus.trim().contains("PLM Approved")) {
+							                		reworkOnPLM();
+													if (reworkOnPLM()) {
+														reworkPLM().click();	
+														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REWORK ON PLM");
+													}else {
+														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CREDENTIAL");
+														error="CREDENTIAL";break;
+													}
+													
+												}
+							                	
 							                	//MAIN METHOD IF STATUS IS IN PLANNING OR POSITION TO SP MOVE TO MAIN METHOD
 							                	statusElemWait();
 					                	      	//STATUS WAIT
@@ -748,12 +762,12 @@ public class nce_extension {
 //			if(typeValue.isEmpty())
 //			{
 //				System.out.println("Using Default Value for Primary Skill");
-//				searchTextBoxPrimarySkill.sendKeys("ITIL - General");
+//				searchTextBoxPrimarySkill.sendKeys("ITIL MANAGEMENT");
 //
 //				searchTextBoxPrimarySkill.sendKeys(Keys.TAB);
 //				
 //				System.out.println("Using Default Value for Secondary Skill");
-//				searchTextBoxSecondarySkill.sendKeys("Tools - General Delivery - Other");
+//				searchTextBoxSecondarySkill.sendKeys("DXC-ITIL GENERAL");
 //
 //				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
 //			}
@@ -762,7 +776,7 @@ public class nce_extension {
 //			{
 //				
 //				System.out.println("Using Default Value for Secondary Skill");
-//				searchTextBoxSecondarySkill.sendKeys("Tools - General Delivery - Other");
+//				searchTextBoxSecondarySkill.sendKeys("DXC-ITIL GENERAL");
 //
 //				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
 //			}

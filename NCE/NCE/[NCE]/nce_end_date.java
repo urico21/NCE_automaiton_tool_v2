@@ -258,6 +258,39 @@ public class nce_end_date{
 //							                			  error="[Error] Approval Button Not Activated"; 
 //							                		  }
 //							                	  }
+								                	
+//								                	  // STATUS: PORJECT UNSOLD, ES INDICATOR TO YES
+//								                	  do {statusElemWait();currentStatus = statusWait();
+//							                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+//							                		  if(currentStatus.trim().contains("PLM Approved")) {
+//							                			  projUnsold().click();
+//							                			  indicatorES().click();
+//							                			  moveToSp().click();
+//							                		  } else {
+//							                			  error="[Error] Approval Button Not Activated"; 
+//							                		  }
+//								                	} while (currentStatus.trim().contains("PLM Approved"));
+//						                	  
+//								                	  
+//								                	  //STATUS: ES APPROVAL
+//								                	  do {statusElemWait();currentStatus = statusWait();
+//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+//							                		  if(approveBtnES() && currentStatus.trim().contains("Pending ES Approval")) {
+//							                			  approveES().click();
+//							                		  } else {
+//							                			  error="[Error] Approval Button Not Activated"; 
+//							                		  }
+//								                	} while (currentStatus.trim().contains("Pending ES Approval"));
+//						                	  
+								                	  
+									                  // STATUS: PLM APPROVED
+									                  do {statusElemWait();currentStatus = statusWait();
+								                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+								                		  if(currentStatus.trim().contains("PLM Approved")) {
+								                			  moveToSp().click();
+								                		  } 
+									                	} while (currentStatus.trim().contains("PLM Approved"));
+
 
 								                	do {currentStatus = statusWait();
 							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
@@ -268,38 +301,7 @@ public class nce_end_date{
 							                		  }
 								                	} while (currentStatus.trim().contains("PLM Approved"));
 								                	
-//							                	  statusElemWait();currentStatus = statusWait();
-//								                  Thread.sleep(100);
-//							                	  //Check Move to SP then click Move to sp button
-//							                	  if (currentStatus.trim().contains("PLM Approved")) {
-//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-//							                		  moveToSp().click();
-//							                	  }
-//							                	  
-//							                	  statusElemWait();currentStatus = statusWait();
-//								                  Thread.sleep(100);
-//							                	  //Check Move to SP then click Move to sp button
-//							                	  if (currentStatus.trim().contains("PLM Approved")) {
-//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-//							                		  moveToSp().click();
-//							                	  }
 							                	  
-//							                	  statusElemWait();currentStatus = statusWait();
-//								                  Thread.sleep(100);
-//							                	  //Check Move to SP then click Move to sp button
-//							                	  if (currentStatus.trim().contains("PLM Approved")) {
-//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-//							                		  moveToSp().click();
-//							                	  }
-//							                	  
-//							                	  statusElemWait();currentStatus = statusWait();
-//								                  Thread.sleep(100);
-//							                	  //Check Move to SP then click Move to sp button
-//							                	  if (currentStatus.trim().contains("PLM Approved")) {
-//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-//							                		  moveToSp().click();
-//							                	  }
-//							                	  
 								                	do {currentStatus = statusWait();
 							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 							                		  if(currentStatus.trim().contains("Staffing Approved")) {
@@ -851,6 +853,84 @@ public class nce_end_date{
 	  		}
 	  		return null;
 	  	}
+	 
+	   public static WebElement projUnsold() {
+	    	for (int x= 0; x< 20; x++) {
+	    		try {
+	    			//Early Staffing Indicator to Yes
+	    			WebDriverWait wait = new WebDriverWait(driver, 10);
+	    			By elemPath = By.id("REQD.P.WFM_PROJECT_SOLD_N");
+	    			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+	    			wait.until(ExpectedConditions.elementToBeClickable(elem)); 
+	    			WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_N"));	
+	    			System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Project Unsold]");
+	    			return element;
+	    		}catch (Exception e) {
+	    			driver.navigate().refresh();
+	    			System.out.println("[WAITING] Move to SP BUTTON");
+	    		}
+	    	}
+	    	return null;
+	    }
+	    
+	    public static WebElement indicatorES() {
+	    	for (int x= 0; x< 20; x++) {
+	    		try {
+	    			//Early Staffing Indicator to Yes
+	    			WebDriverWait wait = new WebDriverWait(driver, 10);
+	    			By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y");
+	    			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+	    			wait.until(ExpectedConditions.elementToBeClickable(elem)); 
+	    			WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));	
+	    			System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [ES Indicator >> Yes]");
+	    			return element;
+	    		}catch (Exception e) {
+	    			driver.navigate().refresh();
+	    			System.out.println("[WAITING] Move to SP BUTTON");
+	    		}
+	    	}
+	    	return null;
+	    }
+	    
+	   
+		public static WebElement approveES() {
+			for (int x = 0; x < 20; x++) {
+			try {
+				WebDriverWait wait = new WebDriverWait(driver, 10);
+				By elemPath = By.xpath("//*[@id=\"DB0_0\"]");
+				WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+				wait.until(ExpectedConditions.elementToBeClickable(elem));
+				WebElement element = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]"));
+				System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Approved EARLY STAFFING]");
+				return element;
+			} catch (Exception e) {
+				driver.navigate().refresh();
+				System.out.println("[WAITING] Approval BUTTON");
+			}
+			}
+			return null;
+		}
+	    
+		public static boolean approveBtnES() {
+			for (int x = 0; x < 20; x++) {
+			try {
+				Thread.sleep(100);
+				WebDriverWait wait = new WebDriverWait(driver, 5);
+				By elemPath = By.id("DB0_0");
+				WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+				System.out.println("Approval Button Activated: "+ elem.isDisplayed());
+				if (elem.isDisplayed()) {
+					return true;
+				}else{
+
+					error="Approval button not active";
+					return false;
+				}
+			} catch (Exception e) {
+			}
+			}
+			return false;
+		}
 	public static WebElement moveToSp() {
 		for (int x = 0; x < 20; x++) {
 		try {
