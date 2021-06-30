@@ -139,26 +139,12 @@ public class nce_extension {
 													}
 													
 												}
-							                	
-							                	System.out.println("REQUEST STATUS: "+currentStatus);
-							                	if (currentStatus.trim().contains("Ready for Approval") || currentStatus.trim().contains("PLM Approved")) {
-							                		reworkOnPLM();
-													if (reworkOnPLM()) {
-														reworkPLM().click();	
-														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REWORK ON PLM");
-													}else {
-														System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CREDENTIAL");
-														error="CREDENTIAL";break;
-													}
-													
-												}
-							                	
 							                	//MAIN METHOD IF STATUS IS IN PLANNING OR POSITION TO SP MOVE TO MAIN METHOD
 							                	statusElemWait();
 					                	      	//STATUS WAIT
 							                	currentStatus = statusWait();
 							                	System.out.println("REQUEST STATUS: "+currentStatus);
-							                	if(currentStatus.trim().contains("In Planning") || currentStatus.trim().contains("Position Created in SP")||currentStatus.trim().contains("Ready for Approval")) {
+							                	if(currentStatus.trim().contains("In Planning") || currentStatus.trim().contains("Position Created in SP")) {
 							                		populate_projectDetails(requestIdStr, fteDateStr, dataList);
 							                	}
 							                	//STATUS WAIT
@@ -369,7 +355,7 @@ public class nce_extension {
 							reDefine().click();	
 							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REDEFINED");
 						}else {
-							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CREDENTIAL");
+							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CFREDENTIAL");
 							error="CREDENTIAL";break;
 						}
 						
@@ -388,13 +374,13 @@ public class nce_extension {
                 		  error="[Error] Closed";
                 		  break;
                 	  }
-//                	  if (currentStatus.trim().contains("Ready for Approval")){
-//                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-//                		  break;
-//                	  }
+                	  if (currentStatus.trim().contains("Ready for Approval")){
+                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+                		  break;
+                	  }
                 	  
 				statusElemWait();currentStatus = statusWait(); 
-		    	if (currentStatus.trim().contains("In Planning")||currentStatus.trim().contains("Ready For Approval")){
+		    	if (currentStatus.trim().contains("In Planning")){
 
 						//Check FTE with value?
 						if (!fteDateVal.isEmpty()) {
@@ -543,13 +529,13 @@ public class nce_extension {
 											} else if (ctr==25) {
 												error="";
 												System.out.println("Using Default Value for Primary Skill");
-												field.sendKeys("DXC-ITIL GENERAL");
+												field.sendKeys("ITIL - General");
 
 												field.sendKeys(Keys.TAB);
 											}else if (ctr==27) {
 												error="";
 												System.out.println("Using Default Value for Secondary Skill");
-												field.sendKeys("DXC-MICROSOFT OFFICE SUITE");
+												field.sendKeys("Tools - General Delivery - Other");
 
 												field.sendKeys(Keys.TAB);
 											}else {
@@ -753,7 +739,7 @@ public class nce_extension {
 			//Default Value for Primary Skill and Secondary skill
 			WebElement searchTextBoxPrimarySkill= driver.findElement(By.id("REQD.P.PRIMARY_SKILLAC_TF"));
 			WebElement searchTextBoxSecondarySkill= driver.findElement(By.id("REQD.P.SECONDARY_SKILLAC_TF"));
-			WebElement searchTextBoxReasonPositionNeeded= driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDEDAC_TF"));	
+			
 			// retrieving html attribute value using getAttribute() method
 			String typeValue=searchTextBoxPrimarySkill.getAttribute("value");
 			String typeValueSecondary=searchTextBoxSecondarySkill.getAttribute("value");
@@ -761,16 +747,13 @@ public class nce_extension {
 			
 			if(typeValue.isEmpty())
 			{
-				System.out.println("Using Default Value for Reason Position Needed");
-				searchTextBoxReasonPositionNeeded.sendKeys("EXTENSION");
-				
 				System.out.println("Using Default Value for Primary Skill");
-				searchTextBoxPrimarySkill.sendKeys("DXC-ITIL GENERAL");
+				searchTextBoxPrimarySkill.sendKeys("ITIL - General");
 
 				searchTextBoxPrimarySkill.sendKeys(Keys.TAB);
 				
 				System.out.println("Using Default Value for Secondary Skill");
-				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
+				searchTextBoxSecondarySkill.sendKeys("Tools - General Delivery - Other");
 
 				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
 			}
@@ -779,7 +762,7 @@ public class nce_extension {
 			{
 				
 				System.out.println("Using Default Value for Secondary Skill");
-				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
+				searchTextBoxSecondarySkill.sendKeys("Tools - General Delivery - Other");
 
 				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
 			}
