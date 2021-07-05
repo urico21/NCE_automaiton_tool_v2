@@ -779,7 +779,7 @@ public class nce_create {
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
 	    	username.sendKeys("ernest.nebre");
-	    	password.sendKeys("Stereorama14!");
+	    	password.sendKeys("!14Stereorama");
 	    	loginBtn.click();
 			break;
 		} catch (Exception e) {
