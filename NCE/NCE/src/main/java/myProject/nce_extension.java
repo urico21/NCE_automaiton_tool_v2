@@ -452,12 +452,34 @@ public class nce_extension {
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+12));
+										
 									} else if(ctr==11) {
 						            	System.out.println("Resource Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_RESOURCE_TYPE")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+12));
+										
+									} else if(ctr==24) {
+							            	System.out.println("Language Aptitude");
+											Select DropDown = new Select(driver.findElement(By.id("REQD.P.SPOKEN_LANG_APTITUDE")));
+
+											DropDown.selectByIndex(0);
+											DropDown.selectByVisibleText(dataList.get(ctr+12));	
+									} else if(ctr==26) {
+							            	System.out.println("Primary Skill Aptitude");
+											Select DropDown = new Select(driver.findElement(By.id("REQD.P.PRIMARY_SKILL_APTITUDE")));
+
+											DropDown.selectByIndex(0);
+											DropDown.selectByVisibleText(dataList.get(ctr+12));
+											
+									} else if(ctr==28) {
+							            	System.out.println("Secondary Skill Aptitude");
+											Select DropDown = new Select(driver.findElement(By.id("REQD.P.SECONDARY_SKILL_APTITUDE")));
+
+											DropDown.selectByIndex(0);
+											DropDown.selectByVisibleText(dataList.get(ctr+12));	
+											
 									} else if(ctr==30) {
 						            	System.out.println("Position Work Location");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_LOC_ALIGN_TO_WPG")));
@@ -529,13 +551,13 @@ public class nce_extension {
 											} else if (ctr==25) {
 												error="";
 												System.out.println("Using Default Value for Primary Skill");
-												field.sendKeys("ITIL - General");
+												field.sendKeys("DXC-ITIL GENERAL");
 
 												field.sendKeys(Keys.TAB);
 											}else if (ctr==27) {
 												error="";
 												System.out.println("Using Default Value for Secondary Skill");
-												field.sendKeys("Tools - General Delivery - Other");
+												field.sendKeys("DXC-MICROSOFT OFFICE SUITE");
 
 												field.sendKeys(Keys.TAB);
 											}else {
@@ -739,21 +761,27 @@ public class nce_extension {
 			//Default Value for Primary Skill and Secondary skill
 			WebElement searchTextBoxPrimarySkill= driver.findElement(By.id("REQD.P.PRIMARY_SKILLAC_TF"));
 			WebElement searchTextBoxSecondarySkill= driver.findElement(By.id("REQD.P.SECONDARY_SKILLAC_TF"));
+			WebElement searchDropDownReasonPositionNeeded= driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED"));
 			
 			// retrieving html attribute value using getAttribute() method
 			String typeValue=searchTextBoxPrimarySkill.getAttribute("value");
 			String typeValueSecondary=searchTextBoxSecondarySkill.getAttribute("value");
+			String typeValueReason=searchDropDownReasonPositionNeeded.getAttribute("value");
 			System.out.println("Value of type attribute: "+typeValue);
+			
+			//Making sure Reason Position Needed is UPDATED to EXTENSION
+			System.out.println("Using Default Value for Reason Position Needed");
+			searchDropDownReasonPositionNeeded.sendKeys("EXTENSION");
 			
 			if(typeValue.isEmpty())
 			{
 				System.out.println("Using Default Value for Primary Skill");
-				searchTextBoxPrimarySkill.sendKeys("ITIL - General");
+				searchTextBoxPrimarySkill.sendKeys("DXC-ITIL GENERAL");
 
 				searchTextBoxPrimarySkill.sendKeys(Keys.TAB);
 				
 				System.out.println("Using Default Value for Secondary Skill");
-				searchTextBoxSecondarySkill.sendKeys("Tools - General Delivery - Other");
+				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
 
 				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
 			}
@@ -762,7 +790,7 @@ public class nce_extension {
 			{
 				
 				System.out.println("Using Default Value for Secondary Skill");
-				searchTextBoxSecondarySkill.sendKeys("Tools - General Delivery - Other");
+				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
 
 				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
 			}

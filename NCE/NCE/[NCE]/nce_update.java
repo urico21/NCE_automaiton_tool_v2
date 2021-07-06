@@ -1011,14 +1011,19 @@ public class nce_update {
 			// retrieving html attribute value using getAttribute() method
 			String typeValue=searchTextBoxPrimarySkill.getAttribute("value");
 			String typeValueSecondary=searchTextBoxSecondarySkill.getAttribute("value");
-			System.out.println("Value of type attribute PRIMARY SKILL: "+typeValue+ " SECONDARY SKILL: "+typeValueSecondary);
+			System.out.println("Value of type attribute: "+typeValue);
 			
 			if(typeValue.isEmpty())
 			{
 				System.out.println("Using Default Value for Primary Skill");
 				searchTextBoxPrimarySkill.sendKeys("DXC-ITIL GENERAL");
+
 				searchTextBoxPrimarySkill.sendKeys(Keys.TAB);
 				
+				System.out.println("Using Default Value for Secondary Skill");
+				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
+
+				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
 			}
 			
 			if(typeValueSecondary.isEmpty())
@@ -1026,6 +1031,7 @@ public class nce_update {
 				
 				System.out.println("Using Default Value for Secondary Skill");
 				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
+
 				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
 			}
 			
