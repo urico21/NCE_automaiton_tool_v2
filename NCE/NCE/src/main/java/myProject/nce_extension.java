@@ -777,6 +777,7 @@ public class nce_extension {
 			searchDropDownReasonPositionNeeded.sendKeys("EXTENSION");
 
 			System.out.println("Migration ID: LRB 2021");
+			searchTextBoxMigrationID.clear();
 			searchTextBoxMigrationID.sendKeys("LRB 2021");
 			if(typeValue.isEmpty())
 			{
