@@ -762,17 +762,22 @@ public class nce_extension {
 			WebElement searchTextBoxPrimarySkill= driver.findElement(By.id("REQD.P.PRIMARY_SKILLAC_TF"));
 			WebElement searchTextBoxSecondarySkill= driver.findElement(By.id("REQD.P.SECONDARY_SKILLAC_TF"));
 			WebElement searchDropDownReasonPositionNeeded= driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED"));
+			WebElement searchTextBoxMigrationID= driver.findElement(By.id("REQD.P.MIGRATION_ID"));
+			
 			
 			// retrieving html attribute value using getAttribute() method
 			String typeValue=searchTextBoxPrimarySkill.getAttribute("value");
 			String typeValueSecondary=searchTextBoxSecondarySkill.getAttribute("value");
 			String typeValueReason=searchDropDownReasonPositionNeeded.getAttribute("value");
+			String typeValueMigration=searchTextBoxMigrationID.getAttribute("value");
 			System.out.println("Value of type attribute: "+typeValue);
 			
 			//Making sure Reason Position Needed is UPDATED to EXTENSION
-			System.out.println("Using Default Value for Reason Position Needed");
+			System.out.println("Reason Position Needed: EXTENSION");
 			searchDropDownReasonPositionNeeded.sendKeys("EXTENSION");
-			
+
+			System.out.println("Migration ID: LRB 2021");
+			searchTextBoxMigrationID.sendKeys("LRB 2021");
 			if(typeValue.isEmpty())
 			{
 				System.out.println("Using Default Value for Primary Skill");
