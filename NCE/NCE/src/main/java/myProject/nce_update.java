@@ -1016,11 +1016,13 @@ public class nce_update {
 			if(typeValue.isEmpty())
 			{
 				System.out.println("Using Default Value for Primary Skill");
+				searchTextBoxPrimarySkill.clear();
 				searchTextBoxPrimarySkill.sendKeys("DXC-ITIL GENERAL");
 
 				searchTextBoxPrimarySkill.sendKeys(Keys.TAB);
 				
 				System.out.println("Using Default Value for Secondary Skill");
+				searchTextBoxSecondarySkill.clear();
 				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
 
 				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
