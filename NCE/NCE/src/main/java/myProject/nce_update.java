@@ -244,7 +244,17 @@ public class nce_update {
 								                	Thread.sleep(500);
 							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
 							                		  if(approveBtnDmdPlanner() && currentStatus.trim().contains("Pending Dmd Planner Approval")) {
-						           						approveADLDmdPlanner().click();
+							                			
+							                			//CHECK IF CANCEL BUTTON I SHOWNED IN PLM APPROVED, REFRESH PAGE IF YES
+							                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
+							                			  String expectedHeading = "Cancel";
+							              					if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
+							              						 System.out.println("==Refresh Page==");
+							              						 driver.navigate().refresh();
+							              					}else {
+							              						approveADLDmdPlanner().click();
+							              					}
+						           						
 		
 							                		  } else {
 							                			  error="[Error] Approval Button Not Activated"; 
@@ -1043,7 +1053,6 @@ public class nce_update {
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
 			WebElement element = driver.findElement(By.xpath("//a//div[contains(text(), 'Complete PLM')]"));
 			System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> [COMPLETE PLM]");
-			
 			return element;		
 			
 			
@@ -1053,11 +1062,11 @@ public class nce_update {
 			System.out.println("[WAITING] COMPLETE PLM BUTTON");
 			
 		}
-		//check if status is changed
-		currentStatus = statusWait();
-		if(!currentStatus.trim().contains("In Planning")) {
-			return null;
-		}
+//		//check if status is changed
+//		currentStatus = statusWait();
+//		if(!currentStatus.trim().contains("In Planning")) {
+//			return null;
+//		}
 		}
 		return null;
 	}

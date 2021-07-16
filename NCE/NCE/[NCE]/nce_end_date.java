@@ -191,7 +191,6 @@ public class nce_end_date{
 							                		  }
 							                	  }
 							                	
-						                	
 						                	error();
 						                	
 						                	if (!error.isEmpty()) {               		
@@ -229,99 +228,67 @@ public class nce_end_date{
 							                		  }
 								                	} while (currentStatus.trim().contains("Pending ADL Approval")||currentStatus.trim().contains("Pending AE Approval"));
 								                	
-//							                	  if (currentStatus.trim().contains("Pending ADL Approval")){
-//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >>  APPROVAL RELEASED");
-//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-//							                		  if(approveBtn()) {
-//								                		  approveADL().click();
-//							                		  } else {
-//							                			  error="[Error] Approval Button Not Activated"; 
-//							                		  }
-//							                	  }
-							                	  
-							                	 						                  
+							                	 	//CHECK IF DMD APPROVAL					                  
 								                	do {currentStatus = statusWait();
 							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 							                		  if(approveBtnDmdPlanner() && currentStatus.trim().contains("Pending Dmd Planner Approval")) {
-							                			  approveADLDmdPlanner().click();
+							                			  
+							                			//CHECK IF CANCEL BUTTON I SHOWNED IN PLM APPROVED, REFRESH PAGE IF YES
+							                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
+							                			  String expectedHeading = "Cancel";
+							              					if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
+							              						 System.out.println("==Refresh Page==");
+							              						 driver.navigate().refresh();
+							              					}else {
+							                			    approveADLDmdPlanner().click();
+							              					}
+							              					
 							                		  } else {
 							                			  error="[Error] Approval Button Not Activated"; 
 							                		  }
 								                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
 								                	
-//							                	  if (currentStatus.trim().contains("Pending Dmd Planner Approval")) {
-//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus); 
-//							                		  
-//							                		  if(approveBtnDmdPlanner()) {
-//							                			  approveADLDmdPlanner().click();
-//							                		  } else {
-//							                			  error="[Error] Approval Button Not Activated"; 
-//							                		  }
-//							                	  }
-								                	
-//								                	  // STATUS: PORJECT UNSOLD, ES INDICATOR TO YES
-//								                	  do {statusElemWait();currentStatus = statusWait();
-//							                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-//							                		  if(currentStatus.trim().contains("PLM Approved")) {
-//							                			  projUnsold().click();
-//							                			  indicatorES().click();
-//							                			  moveToSp().click();
-//							                		  } else {
-//							                			  error="[Error] Approval Button Not Activated"; 
-//							                		  }
-//								                	} while (currentStatus.trim().contains("PLM Approved"));
-//						                	  
-//								                	  
-//								                	  //STATUS: ES APPROVAL
-//								                	  do {statusElemWait();currentStatus = statusWait();
-//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-//							                		  if(approveBtnES() && currentStatus.trim().contains("Pending ES Approval")) {
-//							                			  approveES().click();
-//							                		  } else {
-//							                			  error="[Error] Approval Button Not Activated"; 
-//							                		  }
-//								                	} while (currentStatus.trim().contains("Pending ES Approval"));
-//						                	  
-								                	  
-									                  // STATUS: PLM APPROVED
+
+								                	  //PLM APPROVAL
+									                  // STATUS: PLM APPROVED 1st try
 									                  do {statusElemWait();currentStatus = statusWait();
+									                      Thread.sleep(300);
 								                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 								                		  if(currentStatus.trim().contains("PLM Approved")) {
-								                			  moveToSp().click();
+								                			//CHECK IF CANCEL BUTTON I SHOWNED IN PLM APPROVED, REFRESH PAGE IF YES
+								                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
+								                			  String expectedHeading = "Cancel";
+								              					if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
+								              						 System.out.println("==Refresh Page==");
+								              						 driver.navigate().refresh();
+								              					}else {
+								              						moveToSp().click();
+								              					}
+								                			  
 								                		  } 
 									                	} while (currentStatus.trim().contains("PLM Approved"));
 
-
-								                	do {currentStatus = statusWait();
-							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-							                		  if(currentStatus.trim().contains("PLM Approved")) {
+									                  // STATUS: PLM APPROVED 2nd try
+									                  do {currentStatus = statusWait();
+							                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+							                		  	if(currentStatus.trim().contains("PLM Approved")) {
 							                			  moveToSp().click();
-							                		  } else {
+							                		  	} else {
 							                			  error="[Error] Approval Button Not Activated"; 
-							                		  }
-								                	} while (currentStatus.trim().contains("PLM Approved"));
+							                		  	}
+									                  } while (currentStatus.trim().contains("PLM Approved"));
 								                	
-							                	  
-								                	do {currentStatus = statusWait();
-							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-							                		  if(currentStatus.trim().contains("Staffing Approved")) {
+									                  // STATUS: PLM APPROVED 3rd try
+									                  do {currentStatus = statusWait();
+							                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+							                		  	if(currentStatus.trim().contains("Staffing Approved")) {
 							                			  moveToSp().click();
-							                		  } else {
+							                		  	} else {
 							                			  error="[Error] Approval Button Not Activated"; 
-							                		  }
-								                	} while (currentStatus.trim().contains("Staffing Approved"));
-								                	
-//								                	statusElemWait();currentStatus = statusWait();
-//								                  Thread.sleep(100);
-//							                	  //Check Move to SP then click Move to sp button
-//							                	  if (currentStatus.trim().contains("Staffing Approved")) {
-//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-//							                		  moveToSp().click();
-//							                	  }
-//							                	  
-//							                	  statusElemWait();currentStatus = statusWait();
-//								                  Thread.sleep(100);
-								                  
+							                		  	}
+									                  } while (currentStatus.trim().contains("Staffing Approved"));
+								          								  
+								                
 								                  if (currentStatus.trim().contains("Position Created in SP")) {
 													  error="DONE"; 
 												  }
@@ -755,36 +722,36 @@ public class nce_end_date{
 		for (int x = 0; x < 20; x++) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 5);
-//			//Default Value for Primary Skill and Secondary skill
-//			WebElement searchTextBoxPrimarySkill= driver.findElement(By.id("REQD.P.PRIMARY_SKILLAC_TF"));
-//			WebElement searchTextBoxSecondarySkill= driver.findElement(By.id("REQD.P.SECONDARY_SKILLAC_TF"));
-//			
-//			// retrieving html attribute value using getAttribute() method
-//			String typeValue=searchTextBoxPrimarySkill.getAttribute("value");
-//			String typeValueSecondary=searchTextBoxSecondarySkill.getAttribute("value");
-//			System.out.println("Value of type attribute: "+typeValue);
-//			
-//			if(typeValue.isEmpty())
-//			{
-//				System.out.println("Using Default Value for Primary Skill");
-//				searchTextBoxPrimarySkill.sendKeys("ITIL - General");
-//
-//				searchTextBoxPrimarySkill.sendKeys(Keys.TAB);
-//				
-//				System.out.println("Using Default Value for Secondary Skill");
-//				searchTextBoxSecondarySkill.sendKeys("Tools - General Delivery - Other");
-//
-//				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
-//			}
-//			
-//			if(typeValueSecondary.isEmpty())
-//			{
-//				
-//				System.out.println("Using Default Value for Secondary Skill");
-//				searchTextBoxSecondarySkill.sendKeys("Tools - General Delivery - Other");
-//
-//				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
-//			}
+			//Default Value for Primary Skill and Secondary skill
+			WebElement searchTextBoxPrimarySkill= driver.findElement(By.id("REQD.P.PRIMARY_SKILLAC_TF"));
+			WebElement searchTextBoxSecondarySkill= driver.findElement(By.id("REQD.P.SECONDARY_SKILLAC_TF"));
+			
+			// retrieving html attribute value using getAttribute() method
+			String typeValue=searchTextBoxPrimarySkill.getAttribute("value");
+			String typeValueSecondary=searchTextBoxSecondarySkill.getAttribute("value");
+			System.out.println("Value of type attribute: "+typeValue);
+			
+			if(typeValue.isEmpty())
+			{
+				System.out.println("Using Default Value for Primary Skill");
+				searchTextBoxPrimarySkill.sendKeys("DXC-ITIL GENERAL");
+
+				searchTextBoxPrimarySkill.sendKeys(Keys.TAB);
+				
+				System.out.println("Using Default Value for Secondary Skill");
+				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
+
+				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
+			}
+			
+			if(typeValueSecondary.isEmpty())
+			{
+				
+				System.out.println("Using Default Value for Secondary Skill");
+				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
+
+				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
+			}
 			
 			By elemPath = By.xpath("//a//div[contains(text(), 'Complete PLM')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
