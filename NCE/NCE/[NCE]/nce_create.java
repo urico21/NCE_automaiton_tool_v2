@@ -700,26 +700,26 @@ public class nce_create {
 						Thread.sleep(1000);
 						//Using Default Values if data Fails
 						if (!error.isEmpty()) {
-							if(ctr==7) {
+							if(ctr==6) {
 								error="";
 								System.out.println("Using Default Value for Requested Resource");
 								field.sendKeys("");
 
 								field.sendKeys(Keys.TAB);
-							}else if (ctr==25) {
+							}else if (ctr==23) {
 								error="";
 								System.out.println("Using Default Value for Primary Skill");
 								field.sendKeys("DXC-ITIL GENERAL");
 
 								field.sendKeys(Keys.TAB);
 							}
-//							else if (ctr==27) {
-//								error="";
-//								System.out.println("Using Default Value for Secondary Skill");
-//								field.sendKeys("Tools - General Delivery - Other");
-//
-//								field.sendKeys(Keys.TAB);
-//							}
+							else if (ctr==25) {
+								error="";
+								System.out.println("Using Default Value for Secondary Skill");
+								field.sendKeys("DXC-MICROSOFT OFFICE SUITE");
+
+								field.sendKeys(Keys.TAB);
+							}
 							else {
 								System.out.println("[Data Handler ERROR ]:"+error);
 								break;

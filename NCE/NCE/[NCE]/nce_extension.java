@@ -434,59 +434,59 @@ public class nce_extension {
 						            
 						            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
 									
-						            if (ctr==3) {
+						            if (ctr==2) {
 						            	System.out.println("Country");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.COUNTRY")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+12));
-									} else if(ctr==13) {
+									} else if(ctr==12) {
 						            	System.out.println("Reason Position Needed");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+12));
-									} else if(ctr==12) {
+									} else if(ctr==11) {
 						            	System.out.println("Bill Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_BILL_TYPE")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+12));
 										
-									} else if(ctr==11) {
+									} else if(ctr==10) {
 						            	System.out.println("Resource Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_RESOURCE_TYPE")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+12));
 										
-									} else if(ctr==24) {
+									} else if(ctr==23) {
 							            	System.out.println("Language Aptitude");
 											Select DropDown = new Select(driver.findElement(By.id("REQD.P.SPOKEN_LANG_APTITUDE")));
 
 											DropDown.selectByIndex(0);
 											DropDown.selectByVisibleText(dataList.get(ctr+12));	
-									} else if(ctr==26) {
+									} else if(ctr==25) {
 							            	System.out.println("Primary Skill Aptitude");
 											Select DropDown = new Select(driver.findElement(By.id("REQD.P.PRIMARY_SKILL_APTITUDE")));
 
 											DropDown.selectByIndex(0);
 											DropDown.selectByVisibleText(dataList.get(ctr+12));
 											
-									} else if(ctr==28) {
+									} else if(ctr==27) {
 							            	System.out.println("Secondary Skill Aptitude");
 											Select DropDown = new Select(driver.findElement(By.id("REQD.P.SECONDARY_SKILL_APTITUDE")));
 
 											DropDown.selectByIndex(0);
 											DropDown.selectByVisibleText(dataList.get(ctr+12));	
 											
-									} else if(ctr==30) {
+									} else if(ctr==29) {
 						            	System.out.println("Position Work Location");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_LOC_ALIGN_TO_WPG")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+12));
-									} else if(ctr==29) {
+									} else if(ctr==28) {
 						            	System.out.println("Location Conts Constrained");
 						            	if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
 						            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
@@ -513,11 +513,11 @@ public class nce_extension {
 										WebElement field = wait.until(ExpectedConditions.presenceOfElementLocated(fieldPath));
 										field.clear();
 										
-										if (ctr==8) {
+										if (ctr==7) {
 											field.clear();
 										}
 										
-										if(ctr==18 || ctr==19) {
+										if(ctr==17 && ctr==18) {
 											Thread.sleep(200);
 											field.clear();
 											field.sendKeys(dataList.get(ctr+12).trim());
@@ -542,19 +542,19 @@ public class nce_extension {
 										Thread.sleep(1000);
 										//Using Default Values if data Fails
 										if (!error.isEmpty()) {
-											if(ctr==7) {
+											if(ctr==6) {
 												error="";
 												System.out.println("Using Default Value for Requested Resource");
 												field.sendKeys("");
 
 												field.sendKeys(Keys.TAB);
-											} else if (ctr==25) {
+											} else if (ctr==24) {
 												error="";
 												System.out.println("Using Default Value for Primary Skill");
 												field.sendKeys("DXC-ITIL GENERAL");
 
 												field.sendKeys(Keys.TAB);
-											}else if (ctr==27) {
+											}else if (ctr==26) {
 												error="";
 												System.out.println("Using Default Value for Secondary Skill");
 												field.sendKeys("DXC-MICROSOFT OFFICE SUITE");
