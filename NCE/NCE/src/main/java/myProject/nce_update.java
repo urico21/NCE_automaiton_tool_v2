@@ -45,6 +45,7 @@ public class nce_update {
     protected static WebDriver driver;
     protected static String id;
 	protected static String requestIdStr;
+	protected static String positionID;
 	protected static String fteDateStr;
 	protected static String reasonStr;
 	protected static String parallelKey;
@@ -1018,8 +1019,11 @@ public class nce_update {
 			 update.setString(2, requestIdStr);
 	         update.setString(3, currentStatus);
 	         update.setLong(4, timeElapsedRec.toMillis());
-	         update.setString(5, thread);
-	         update.setString(6, id);
+	         if(positionId()) {
+		         update.setString(5, positionID);
+	         }
+	         update.setString(6, thread);
+	         update.setString(7, id);
 	         Thread.sleep(2000);
 	         break;
 		} catch (Exception e) {
@@ -1027,6 +1031,28 @@ public class nce_update {
 		}
 		}		
 	}
+	
+	public static boolean positionId() {
+		for (int x = 0; x < 20; x++) {
+		try {
+			Thread.sleep(100);
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DRIVEN_P_7\"]")).getText();
+			By elemPath = By.id("DRIVEN_P_7");
+			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+			if (elem.isDisplayed()) {
+				System.out.println("[Potition ID]"+HeaderTxt);
+				positionID = HeaderTxt;
+				return true;
+			}else{
+				return false;
+			}
+		} catch (Exception e) {
+		}
+		}
+		return false;
+	}
+
 	
 	public static WebElement reqID() {
 		for (int x = 0; x < 20; x++) {

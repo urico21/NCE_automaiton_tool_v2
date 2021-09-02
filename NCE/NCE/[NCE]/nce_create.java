@@ -167,16 +167,8 @@ public class nce_create {
 							                	System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >>  APPROVAL RELEASED");
 						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
 						                		  if(approveAEBtn() && currentStatus.trim().contains("Pending AE Approval")) {
-						                			  
-						                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-						                			  String expectedHeading = "Cancel";
-						                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-						                					 System.out.println("==Refresh Page==");
-						                					 driver.navigate().refresh();
-						                				}else {
-						                					approveAE().click();
-						                				}
-						                			  
+						                			  approveAE().click();
+						                										                			  
 						                		  } else {
 						                			  error="[Error] Approval Button Not Activated"; 
 						                		  }
@@ -457,7 +449,7 @@ public class nce_create {
 		for (int x = 0; x < 5; x++) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 5);
-			By elemPath = By.id("DB0_0");
+			By elemPath = By.id("DB1_0");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			System.out.println("Approval Button Activated: "+ elem.isDisplayed());
 			if (elem.isDisplayed()) {
@@ -496,7 +488,7 @@ public class nce_create {
   		for (int x = 0; x < 20; x++) {
   		try {
   			WebDriverWait wait = new WebDriverWait(driver, 10);
-  			By elemPath = By.xpath("//*[@id=\"DB0_0\"]");
+  			By elemPath = By.xpath("//*[@id=\"DB1_0\"]");
   			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
   			wait.until(ExpectedConditions.elementToBeClickable(elem));
   			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]"));

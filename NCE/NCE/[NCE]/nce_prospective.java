@@ -166,17 +166,8 @@ public class nce_prospective {
 						                	  do {statusElemWait();currentStatus = statusWait();
 							                	System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >>  APPROVAL RELEASED");
 						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
-						                		  if(approveAEBtn() && currentStatus.trim().contains("Pending AE Approval")) {
-						                			  
-						                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-						                			  String expectedHeading = "Cancel";
-						                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-						                					 System.out.println("==Refresh Page==");
-						                					 driver.navigate().refresh();
-						                				}else {
+						                		  if(approveAEBtn() && currentStatus.trim().contains("Pending AE Approval")) {						                			 
 						                					approveAE().click();
-						                				}
-						                			  
 						                		  } else {
 						                			  error="[Error] Approval Button Not Activated"; 
 						                		  }
@@ -457,7 +448,7 @@ public class nce_prospective {
 		for (int x = 0; x < 5; x++) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 5);
-			By elemPath = By.id("DB0_0");
+			By elemPath = By.id("DB01_0");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			System.out.println("Approval Button Activated: "+ elem.isDisplayed());
 			if (elem.isDisplayed()) {
@@ -496,11 +487,11 @@ public class nce_prospective {
   		for (int x = 0; x < 20; x++) {
   		try {
   			WebDriverWait wait = new WebDriverWait(driver, 10);
-  			By elemPath = By.xpath("//*[@id=\"DB0_0\"]");
+  			By elemPath = By.xpath("//*[@id=\"DB1_0\"]");
   			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
   			wait.until(ExpectedConditions.elementToBeClickable(elem));
-  			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]"));
-  			System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Approved ADL]");
+  			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB1_0\"]"));
+  			System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Approved AE]");
   			return element;
   		} catch (Exception e) {
   			driver.navigate().refresh();
