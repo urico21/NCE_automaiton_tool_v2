@@ -219,12 +219,26 @@ public class nce_update {
 												  
 												  ctr=0;//Reset counter
 												  
-						                		  //CHECK IF PENDING ADL APROVAL OR AE APPROVAL
+												  statusElemWait();currentStatus = statusWait();
+							                	  Thread.sleep(500);
+							                	  if(currentStatus.trim().contains("Pending AE Approval")) {
+							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >>  APPROVAL RELEASED");
+							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+							                		  if(approveAEBtn() && currentStatus.trim().contains("Pending AE Approval")) {
+							                			  error="";
+							                			  approveAE().click();
+							                		  } else {
+							                			  error="[Error] Pending AE Approval Approval Button Not Activated"; 
+							                		  }
+							                	  }							         		                	  
+								                	
+							                	  
+						                		  //CHECK IF PENDING ADL APROVAL 
 												  do {currentStatus = statusWait();
 												  Thread.sleep(500);
 								                	System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >>  APPROVAL RELEASED");
 							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
-							                		  if(approveBtn() && currentStatus.trim().contains("Pending ADL Approval")||currentStatus.trim().contains("Pending AE Approval")) {
+							                		  if(approveBtn() && currentStatus.trim().contains("Pending ADL Approval")) {
 							                				approveADL().click();	
 							              				} else {
 							                			  error="[Error] Approval Button Not Activated"; 
@@ -235,7 +249,7 @@ public class nce_update {
 								                		}
 								                		ctr++;
 							                		
-								                	} while (currentStatus.trim().contains("Pending ADL Approval")||currentStatus.trim().contains("Pending AE Approval"));
+								                	} while (currentStatus.trim().contains("Pending ADL Approval"));
 								                		
 												    ctr=0;//Reset counter
 												    
@@ -1129,6 +1143,43 @@ public class nce_update {
 		return null;
 	}
 	
+	   public static boolean approveAEBtn() {
+			for (int x = 0; x < 5; x++) {
+			try {
+				WebDriverWait wait = new WebDriverWait(driver, 5);
+				By elemPath = By.id("DB1_0");
+				WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+				System.out.println("Approval Button Activated: "+ elem.isDisplayed());
+				if (elem.isDisplayed()) {
+					return true;
+				}else{
+
+					error="Approval button not active";
+					return false;
+				}
+			} catch (Exception e) {
+			}
+			}
+			return false;
+		}
+	   
+		 public static WebElement approveAE() {
+		  		for (int x = 0; x < 20; x++) {
+		  		try {
+		  			WebDriverWait wait = new WebDriverWait(driver, 10);
+		  			By elemPath = By.xpath("//*[@id=\"DB1_0\"]");
+		  			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+		  			wait.until(ExpectedConditions.elementToBeClickable(elem));
+		  			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB1_0\"]"));
+		  			System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Approved ADL]");
+		  			return element;
+		  		} catch (Exception e) {
+		  			driver.navigate().refresh();
+		  			System.out.println("[WAITING] Approval BUTTON");
+		  		}
+		  		}
+		  		return null;
+		  	}	   
 	public static WebElement approveADL() {
 		for (int x = 0; x < 20; x++) {
 		try {

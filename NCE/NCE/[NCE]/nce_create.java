@@ -491,7 +491,7 @@ public class nce_create {
   			By elemPath = By.xpath("//*[@id=\"DB1_0\"]");
   			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
   			wait.until(ExpectedConditions.elementToBeClickable(elem));
-  			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]"));
+  			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB1_0\"]"));
   			System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Approved ADL]");
   			return element;
   		} catch (Exception e) {
