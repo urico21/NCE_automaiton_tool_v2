@@ -427,68 +427,77 @@ public class nce_extension {
 						for (int ctr = 1; ctr <= 29	; ctr++) {
 							 String ctrStr=Integer.toString(ctr);
 							
-						if (!dataList.get(ctr+12).isEmpty()) {
+						if (!dataList.get(ctr+11).isEmpty()) {
 							 try (InputStream input = new FileInputStream("src/main/resources/properties/elements.properties")) {
 						            Properties prop = new Properties();
 						            prop.load(input);
 						            
-						            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
+						            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+11));
+						            
+						            WebElement searchTextBoxMigID= driver.findElement(By.id("REQD.P.MIGRATION_ID"));
+									String typeValueMig=searchTextBoxMigID.getAttribute("value");
+									searchTextBoxMigID.clear();
 									
 						            if (ctr==2) {
 						            	System.out.println("Country");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.COUNTRY")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+12));
+										DropDown.selectByVisibleText(dataList.get(ctr+11));
 									} else if(ctr==12) {
 						            	System.out.println("Reason Position Needed");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+12));
+										DropDown.selectByVisibleText(dataList.get(ctr+11));
 									} else if(ctr==11) {
 						            	System.out.println("Bill Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_BILL_TYPE")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+12));
+										DropDown.selectByVisibleText(dataList.get(ctr+11));
 										
 									} else if(ctr==10) {
 						            	System.out.println("Resource Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_RESOURCE_TYPE")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+12));
+										DropDown.selectByVisibleText(dataList.get(ctr+11));
 										
 									} else if(ctr==23) {
 							            	System.out.println("Language Aptitude");
 											Select DropDown = new Select(driver.findElement(By.id("REQD.P.SPOKEN_LANG_APTITUDE")));
 
 											DropDown.selectByIndex(0);
-											DropDown.selectByVisibleText(dataList.get(ctr+12));	
+											DropDown.selectByVisibleText(dataList.get(ctr+11));	
 									} else if(ctr==25) {
 							            	System.out.println("Primary Skill Aptitude");
 											Select DropDown = new Select(driver.findElement(By.id("REQD.P.PRIMARY_SKILL_APTITUDE")));
 
 											DropDown.selectByIndex(0);
-											DropDown.selectByVisibleText(dataList.get(ctr+12));
+											DropDown.selectByVisibleText(dataList.get(ctr+11));
 											
 									} else if(ctr==27) {
 							            	System.out.println("Secondary Skill Aptitude");
 											Select DropDown = new Select(driver.findElement(By.id("REQD.P.SECONDARY_SKILL_APTITUDE")));
 
 											DropDown.selectByIndex(0);
-											DropDown.selectByVisibleText(dataList.get(ctr+12));	
+											DropDown.selectByVisibleText(dataList.get(ctr+11));	
 											
 									} else if(ctr==29) {
 						            	System.out.println("Position Work Location");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_LOC_ALIGN_TO_WPG")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+12));
+										DropDown.selectByVisibleText(dataList.get(ctr+11));
+										
+									}else if(ctr==20) {
+						            		System.out.println("Migration ID");
+											searchTextBoxMigID.sendKeys(dataList.get(ctr+11).trim());
+										
 									} else if(ctr==28) {
 						            	System.out.println("Location Conts Constrained");
-						            	if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
+						            	if(dataList.get(ctr+11).toLowerCase().contains("yes")) {
 						            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
 						            		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 											 element.click();
@@ -497,7 +506,7 @@ public class nce_extension {
 												 element.click();
 											 }
 						            	}
-						            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
+						            	if(dataList.get(ctr+11).toLowerCase().contains("no")) {
 						            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
 											 element.click();
 											 System.out.println(element.isSelected());
@@ -517,16 +526,17 @@ public class nce_extension {
 											field.clear();
 										}
 										
+										
 										if(ctr==17 && ctr==18) {
 											Thread.sleep(200);
 											field.clear();
-											field.sendKeys(dataList.get(ctr+12).trim());
+											field.sendKeys(dataList.get(ctr+11).trim());
 											field.clear();
-											field.sendKeys(dataList.get(ctr+12).trim());
+											field.sendKeys(dataList.get(ctr+11).trim());
 											field.sendKeys(Keys.TAB);
 										} else {
 											Thread.sleep(200);
-											field.sendKeys(dataList.get(ctr+12).trim());
+											field.sendKeys(dataList.get(ctr+11).trim());
 											field.sendKeys(Keys.TAB);
 										}
 										
@@ -538,7 +548,7 @@ public class nce_extension {
 										}
 										Thread.sleep(1000);
 										//PPMC ERROR HANDLER
-										invalidataHandler(dataList.get(ctr+12));
+										invalidataHandler(dataList.get(ctr+11));
 										Thread.sleep(1000);
 										//Using Default Values if data Fails
 										if (!error.isEmpty()) {
@@ -560,7 +570,8 @@ public class nce_extension {
 												field.sendKeys("DXC-MICROSOFT OFFICE SUITE");
 
 												field.sendKeys(Keys.TAB);
-											}else {
+											}
+											else {
 												System.out.println("[Data Handler ERROR ]:"+error);
 												break;
 											}
@@ -574,7 +585,7 @@ public class nce_extension {
 										System.out.println("[ERROR]:"+error);
 										break;}
 									
-									invalidataHandler(dataList.get(ctr+12));if (!error.isEmpty()) {
+									invalidataHandler(dataList.get(ctr+11));if (!error.isEmpty()) {
 										System.out.println("[ERROR]:"+error);
 										break;}
 									
@@ -762,23 +773,22 @@ public class nce_extension {
 			WebElement searchTextBoxPrimarySkill= driver.findElement(By.id("REQD.P.PRIMARY_SKILLAC_TF"));
 			WebElement searchTextBoxSecondarySkill= driver.findElement(By.id("REQD.P.SECONDARY_SKILLAC_TF"));
 			WebElement searchDropDownReasonPositionNeeded= driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED"));
-			WebElement searchTextBoxMigrationID= driver.findElement(By.id("REQD.P.MIGRATION_ID"));
+            WebElement searchTextBoxMigID= driver.findElement(By.id("REQD.P.MIGRATION_ID"));
+
 			
 			
 			// retrieving html attribute value using getAttribute() method
 			String typeValue=searchTextBoxPrimarySkill.getAttribute("value");
 			String typeValueSecondary=searchTextBoxSecondarySkill.getAttribute("value");
 			String typeValueReason=searchDropDownReasonPositionNeeded.getAttribute("value");
-			String typeValueMigration=searchTextBoxMigrationID.getAttribute("value");
+			String typeValueMig=searchTextBoxMigID.getAttribute("value");
+			
 			System.out.println("Value of type attribute: "+typeValue);
 			
 			//Making sure Reason Position Needed is UPDATED to EXTENSION
 			System.out.println("Reason Position Needed: EXTENSION");
 			searchDropDownReasonPositionNeeded.sendKeys("EXTENSION");
 
-			System.out.println("Migration ID: LRB 2021");
-			searchTextBoxMigrationID.clear();
-			searchTextBoxMigrationID.sendKeys("LRB 2021");
 			if(typeValue.isEmpty())
 			{
 				System.out.println("Using Default Value for Primary Skill");
@@ -790,6 +800,16 @@ public class nce_extension {
 				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
 
 				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
+				
+			}
+			
+			if(typeValueMig.isEmpty())
+			{
+				
+				System.out.println("Using Default Value for Migration ID");
+				searchTextBoxMigID.clear();
+				searchTextBoxSecondarySkill.sendKeys("LRB 2021");
+
 			}
 			
 			if(typeValueSecondary.isEmpty())

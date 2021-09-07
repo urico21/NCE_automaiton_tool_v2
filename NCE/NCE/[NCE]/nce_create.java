@@ -288,7 +288,7 @@ public class nce_create {
 
 						                	  
 						                	  statusElemWait();currentStatus = statusWait();
-							                  Thread.sleep(500);
+							                  Thread.sleep(1000);
 							                  // STATUS: STAFFING APPROVED
 							                  if (currentStatus.trim().contains("Position Created in SP")) {
 												  error="DONE"; 
