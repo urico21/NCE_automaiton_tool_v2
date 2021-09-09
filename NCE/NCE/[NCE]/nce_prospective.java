@@ -135,6 +135,8 @@ public class nce_prospective {
 						                	completePLM().click();
 						    					ongoingUpate();
 						    					update.executeUpdate();	
+						    					 projUnsold().click();
+					                			  indicatorES().click();
 						                	releaseForAppvl().click();
 						                		ongoingUpate();
 						                		update.executeUpdate();
@@ -165,9 +167,10 @@ public class nce_prospective {
 						                	  ctr = 0;
 						                	  do {statusElemWait();currentStatus = statusWait();
 							                	System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >>  APPROVAL RELEASED");
-						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
-						                		  if(approveAEBtn() && currentStatus.trim().contains("Pending AE Approval")) {						                			 
-						                					approveAE().click();
+						                		  if(approveAEBtn() && currentStatus.trim().contains("Pending AE Approval")) {
+						                			  
+						                			  approveAE().click();
+						                										                			  
 						                		  } else {
 						                			  error="[Error] Approval Button Not Activated"; 
 						                		  }
@@ -203,23 +206,23 @@ public class nce_prospective {
 							                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
 				                	  
 						                	  // STATUS: PORJECT UNSOLD, ES INDICATOR TO YES
-						                	  do {statusElemWait();currentStatus = statusWait();
-					                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+projIDStr+"] >> " + currentStatus);
-					                		  if(currentStatus.trim().contains("PLM Approved")) {
-					                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-					                			  String expectedHeading = "Cancel";
-				                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-				                					 System.out.println("==Refresh Page==");
-				                					 driver.navigate().refresh();
-				                				}else {
-					                			  projUnsold().click();
-					                			  indicatorES().click();
-					                			  moveToSp().click();
-				                				}
-					                		  } else {
-					                			  error="[Error] Approval Button Not Activated"; 
-					                		  }
-						                	} while (currentStatus.trim().contains("PLM Approved"));
+//						                	  do {statusElemWait();currentStatus = statusWait();
+//					                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+projIDStr+"] >> " + currentStatus);
+//					                		  if(currentStatus.trim().contains("Ready for Approval")) {
+//					                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
+//					                			  String expectedHeading = "Cancel";
+//				                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
+//				                					 System.out.println("==Refresh Page==");
+//				                					 driver.navigate().refresh();
+//				                				}else {
+//					                			  projUnsold().click();
+//					                			  indicatorES().click();
+//					                			  moveToSp().click();
+//				                				}
+//					                		  } else {
+//					                			  error="[Error] Approval Button Not Activated"; 
+//					                		  }
+//						                	} while (currentStatus.trim().contains("Ready for Approval"));
 				                	  
 						                	  
 						                	  //STATUS: ES APPROVAL

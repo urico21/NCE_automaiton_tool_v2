@@ -132,6 +132,7 @@ public class nce_create {
 				                		//PROCEED TO CLICK REQUEST ID AND APPROVALS
 				                		if(error.isEmpty()) {
 						                	reqID().click();
+						                	Thread.sleep(500);
 						                	completePLM().click();
 						    					ongoingUpate();
 						    					update.executeUpdate();	
@@ -202,44 +203,7 @@ public class nce_create {
 						                		  }
 						                		  ctr++;
 							                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
-				                	  
-//						                	  // STATUS: PORJECT UNSOLD, ES INDICATOR TO YES
-//						                	  do {statusElemWait();currentStatus = statusWait();
-//					                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+projIDStr+"] >> " + currentStatus);
-//					                		  if(currentStatus.trim().contains("PLM Approved")) {
-//					                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-//					                			  String expectedHeading = "Cancel";
-//				                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-//				                					 System.out.println("==Refresh Page==");
-//				                					 driver.navigate().refresh();
-//				                				}else {
-//					                			  projUnsold().click();
-//					                			  indicatorES().click();
-//					                			  moveToSp().click();
-//				                				}
-//					                		  } else {
-//					                			  error="[Error] Approval Button Not Activated"; 
-//					                		  }
-//						                	} while (currentStatus.trim().contains("PLM Approved"));
-//				                	  
-//						                	  
-//						                	  //STATUS: ES APPROVAL
-//						                	  do {statusElemWait();currentStatus = statusWait();
-//					                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+projIDStr+"] >> " + currentStatus);
-//					                		  if(approveBtnES() && currentStatus.trim().contains("Pending ES Approval")) {
-//					                		String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-//					                		String expectedHeading = "Cancel";
-//			                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-//			                					 System.out.println("==Refresh Page==");
-//			                					 driver.navigate().refresh();
-//			                				}else {
-//					                			  approveES().click();
-//			                				}
-//			                				} else {
-//					                			  error="[Error] Approval Button Not Activated"; 
-//					                		  }
-//						                	} while (currentStatus.trim().contains("Pending ES Approval"));
-			                	  
+				                	  			                	  
 						                	  
 							                  // STATUS: PLM APPROVED
 						                	  ctr=0;
