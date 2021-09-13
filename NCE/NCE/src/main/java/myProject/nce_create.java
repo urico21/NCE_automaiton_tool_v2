@@ -180,29 +180,29 @@ public class nce_create {
 							                	} while (currentStatus.trim().contains("Pending AE Approval"));
 						                	  
 						                	  // STATUS: PENDING DMD PLANNER APPROVAL
-						                	  ctr=0;
-						                	  do {statusElemWait();currentStatus = statusWait();
-						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
-						                		  if(approveBtnDmdPlanner() && currentStatus.trim().contains("Pending Dmd Planner Approval")) {
-						                			  
-						                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-						                			  String expectedHeading = "Cancel";
-						                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-						                					 System.out.println("==Refresh Page==");
-						                					 driver.navigate().refresh();
-						                				}else {
-						                					approveADLDmdPlanner().click();
-						                				}
-						                			  
-						                			  
-						                		  } else {
-						                			  error="[Error] Approval Button Not Activated"; 
-						                		  }
-						                		  if(ctr == 20) {
-						                			  break;
-						                		  }
-						                		  ctr++;
-							                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
+//						                	  ctr=0;
+//						                	  do {statusElemWait();currentStatus = statusWait();
+//						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+//						                		  if(approveBtnDmdPlanner() && currentStatus.trim().contains("Pending Dmd Planner Approval")) {
+//						                			  
+//						                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
+//						                			  String expectedHeading = "Cancel";
+//						                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
+//						                					 System.out.println("==Refresh Page==");
+//						                					 driver.navigate().refresh();
+//						                				}else {
+//						                					approveADLDmdPlanner().click();
+//						                				}
+//						                			  
+//						                			  
+//						                		  } else {
+//						                			  error="[Error] Approval Button Not Activated"; 
+//						                		  }
+//						                		  if(ctr == 20) {
+//						                			  break;
+//						                		  }
+//						                		  ctr++;
+//							                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
 				                	  			                	  
 						                	  
 							                  // STATUS: PLM APPROVED

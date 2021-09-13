@@ -275,10 +275,10 @@ public class nce_delete {
 		for (int x = 0; x < 20; x++) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver,30);
-			By elemPath = By.xpath("//*[contains(@id,'DB1_0')]");
+			By elemPath = By.xpath("//*[contains(@id,'DB0_0')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
-			WebElement element = driver.findElement(By.xpath("//*[contains(@id,'DB1_0')]/div"));
+			WebElement element = driver.findElement(By.xpath("//*[contains(@id,'DB0_0')]/div"));
 			return element;
 		} catch (Exception e) {
 			System.out.println("[WAITING] CANCEL BUTTON");
