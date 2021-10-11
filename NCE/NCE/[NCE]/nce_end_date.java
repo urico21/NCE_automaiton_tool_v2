@@ -111,7 +111,7 @@ public class nce_end_date{
 				                	fteDateStr=rs.getString("end_date".trim());
 				                	searchRequestId(requestIdStr.trim());
 				                	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> PROCESSING");
-				                	
+				                	System.out.println("RECORD ["+id+"] - END DATE: ["+fteDateStr+"] >> PROCESSING");
 				                	//CHECK IF I HAVE ACCES TO THE ACCOUNT
 				                	if(!accessError()) {
 				                		//STATUS WAIT
@@ -123,14 +123,20 @@ public class nce_end_date{
 						                		dataList.add(rs.getString(count));
 						                	}
 						                	
-					                	      	statusElemWait();
-					                	      	//STATUS WAIT
-							                	currentStatus = statusWait();
+					                	      	statusElemWait();currentStatus = statusWait();
 							                	System.out.println("REQUEST STATUS: "+currentStatus);
+							                	Thread.sleep(500);
 							                	//MAIN METHOD
 							                	if(currentStatus.trim().contains("In Planning") || currentStatus.trim().contains("Position Created in SP")) {
+							                		//System.out.println("Reflecting End Dates....");
 							                		populate_projectDetails(requestIdStr, fteDateStr, dataList);
 							                	}
+							                	statusElemWait();currentStatus = statusWait();
+							                	//Check if Status is Ready for Approval
+							                	if (currentStatus.trim().contains("Ready for Approval")){
+							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+							                		  error="[ERROR] DEMAND ON READY APPROVAL STATE - MOVE STATUS TO IN PLANNING";
+							                	  }
 							                	//STATUS WAIT
 							                	statusElemWait();currentStatus = statusWait();
 							                	Thread.sleep(100);
@@ -150,86 +156,80 @@ public class nce_end_date{
 							                		  error="[Error] Issue In Credentials/ Not PM in the Account";
 							                	}
 							                	
+							                	statusElemWait();currentStatus = statusWait();
+							                	//Check if current status id ADL, AE or PLM Approval
+							                	if(currentStatus.trim().contains("Pending ADL Approval")||currentStatus.trim().contains("Pending AE Approval")||currentStatus.trim().contains("PLM Approved")) {
+							                		error="[VALIDATE] DEMAND ON APPROVAL STATE!!!";
+							                	}
+							                	//First catch of issue when clicked
+							                	statusElemWait();currentStatus = statusWait();
 							                	//CHECK IF STATUS AFTER MAIN METHOD | In Planning
 							                	if(currentStatus.trim().contains("In Planning")) {
 							                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 							                		completePLM().click();
 							                	}
 							                	
-							                	//CHECK IF STATUS AFTER MAIN METHOD
-							                	statusElemWait();currentStatus = statusWait();
-												  if(currentStatus.trim().contains("Ready for Approval")) {
-													  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-													  releaseForAppvl().click();
-												  }
-							                	
-												//CHECK IF STATUS AFTER MAIN METHOD | Pending AE Approval
-													statusElemWait();currentStatus = statusWait();
-								                	if(currentStatus.trim().contains("Pending AE Approval")) {
-								                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-								                		approveAE().click();
-								                	}
-							                	
-							                	//CHECK IF STATUS AFTER MAIN METHOD | Pending ADL Approval
-							                	if(currentStatus.trim().contains("Pending ADL Approval")) {
+							                	//Fix Skills Issue
+							                	if(currentStatus.trim().contains("In Planning")) {
 							                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-							                		 if(approveBtn()) {
-								                		  approveADL().click();
-							                		  } else {
-							                			  error="[Error] Approval Button Not Activated"; 
-							                		  }
+							                		completePLM().click();
 							                	}
 							                	
-
-							                	if (currentStatus.trim().contains("Pending Dmd Planner Approval")) {
-							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus); 
-							                		  
-							                		  if(approveBtnDmdPlanner()) {
-							                			  approveADLDmdPlanner().click();
-							                		  } else {
-							                			  error="[Error] Approval Button Not Activated"; 
-							                		  }
-							                	  }
+							                	  //STATUS: READY FOR APPROVAL (With Data issue encountered)
+												  statusElemWait();currentStatus = statusWait();
+												  Thread.sleep(500);
+												  if(currentStatus.trim().contains("Ready for Approval")) {
+								                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+							              				releaseForAppvl().click();
+												  }else {
+							                			  error="[Error] Approval Button Not Activated - Release for Approval"; 
+							                	  } 
+												  
+							                	
+							                	alertHandler();	if (!error.isEmpty()) {
+													System.out.println("[ERROR]:"+error);
+													}
+												
+												invalidataHandler();if (!error.isEmpty()) {
+													System.out.println("[ERROR]:"+error);
+													}
 							                	
 						                	error();
 						                	
 						                	if (!error.isEmpty()) {               		
 												System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> SKIPPED");
 						                	}else {
-												  statusElemWait();currentStatus = statusWait();
-												  Thread.sleep(100);
-												  
-												  //CHECK IF IN PLANNING
-												  if (currentStatus.trim().contains("In Planning")){
-												  System.out.println("RECORD ["+id+"] - REQUEST ID  ["+requestIdStr+"] >> COMPLETE PLM NOT COMPLETE | Project FTE ISSUE");  
-												  error="[Error] Insufficient access to Request Id "+requestIdStr;
-												  }
-												  
-												  //CHECK IF STATUS AFTER MAIN METHOD
-												  if(currentStatus.trim().contains("Ready for Approval")) {
-													  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-													  releaseForAppvl().click();
-												  }
+						                		
+						                		  int ctr = 0;
+												  												  
 												  //CHECK STATUS AFTER RELEASE APPROVAL
 												  statusElemWait();currentStatus = statusWait();
 												  Thread.sleep(100);
 												  
-												  if (currentStatus.trim().contains("Position Created in SP")) {
-													  error="[Error] Issue on credential"; 
-												  } 
-						                		  //CHECK IF PENDING ADL APROVAL
-												  do {currentStatus = statusWait();
-								                	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >>  APPROVAL RELEASED");
+						                		  //CHECK IF PENDING ADL || AE APPROVAL
+												  do {
+													  statusElemWait();currentStatus = statusWait();
+													  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >>  APPROVAL RELEASED");
 							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-							                		  if(approveBtn() && currentStatus.trim().contains("Pending ADL Approval")||currentStatus.trim().contains("Pending AE Approval")) {
-								                		  approveADL().click();
-							                		  } else {
-							                			  error="[Error] Approval Button Not Activated"; 
-							                		  }
+							                		  //Pending ADL Approval
+							                		  if(currentStatus.trim().contains("Pending ADL Approval")) {
+									                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+									                		approveADL().click();
+									                	}else {
+							                			  error="[Error] Approval Button Not Activated on ADL Approval"; 
+									                	}
+									                	//Pending AE Approval
+														statusElemWait();currentStatus = statusWait();
+									                	if(currentStatus.trim().contains("Pending AE Approval")) {
+									                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+									                		approveAE().click();
+									                	}else {
+								                			  error="[Error] Approval Button Not Activated on AE Approval"; 
+										                	}
 								                	} while (currentStatus.trim().contains("Pending ADL Approval")||currentStatus.trim().contains("Pending AE Approval"));
 								                	
 							                	 	//CHECK IF DMD APPROVAL					                  
-								                	do {currentStatus = statusWait();
+								                	do {statusElemWait();currentStatus = statusWait();
 							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 							                		  if(approveBtnDmdPlanner() && currentStatus.trim().contains("Pending Dmd Planner Approval")) {
 							                			  
@@ -244,52 +244,35 @@ public class nce_end_date{
 							              					}
 							              					
 							                		  } else {
-							                			  error="[Error] Approval Button Not Activated"; 
+							                			  error="[Error] Approval Button Not Activated on DMD Approval"; 
 							                		  }
 								                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
 								                	
 
 								                	  //PLM APPROVAL
 									                  // STATUS: PLM APPROVED 1st try
-									                  do {statusElemWait();currentStatus = statusWait();
-									                      Thread.sleep(300);
-								                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-								                		  if(currentStatus.trim().contains("PLM Approved")) {
-								                			//CHECK IF CANCEL BUTTON I SHOWNED IN PLM APPROVED, REFRESH PAGE IF YES
-								                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-								                			  String expectedHeading = "Cancel";
-								              					if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-								              						 System.out.println("==Refresh Page==");
-								              						 driver.navigate().refresh();
-								              					}else {
-								              						moveToSp().click();
+								                	  ctr = 0;
+									                  do {
+									                	  	statusElemWait();currentStatus = statusWait();
+									                      	Thread.sleep(300);
+									                      	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+									                      	if(currentStatus.trim().contains("PLM Approved")) {
+									                      		moveToSp().click();
+								              				}else {
+								              					error="[Error] Approval Button Not Activated on PLM Approval"; 	
 								              					}
-								                			  
-								                		  } 
-									                	} while (currentStatus.trim().contains("PLM Approved"));
+									                      	ctr++;
+									                      	if(ctr==5) {
+									                      		break;
+									                      	}
+									                      	
+								                		  } while (currentStatus.trim().contains("PLM Approved"));
 
-									                  // STATUS: PLM APPROVED 2nd try
-									                  do {currentStatus = statusWait();
-							                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-							                		  	if(currentStatus.trim().contains("PLM Approved")) {
-							                			  moveToSp().click();
-							                		  	} else {
-							                			  error="[Error] Approval Button Not Activated"; 
-							                		  	}
-									                  } while (currentStatus.trim().contains("PLM Approved"));
-								                	
-									                  // STATUS: PLM APPROVED 3rd try
-									                  do {currentStatus = statusWait();
-							                		  	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-							                		  	if(currentStatus.trim().contains("Staffing Approved")) {
-							                			  moveToSp().click();
-							                		  	} else {
-							                			  error="[Error] Approval Button Not Activated"; 
-							                		  	}
-									                  } while (currentStatus.trim().contains("Staffing Approved"));
-								          								  
-								                
+									                 
 								                  if (currentStatus.trim().contains("Position Created in SP")) {
+													  error="DONE"; 
+												  }
+								                  if (currentStatus.trim().contains("Pending Org Lead Approval")) {
 													  error="DONE"; 
 												  }
 					                	  }
@@ -337,10 +320,10 @@ public class nce_end_date{
 		for (int x = 0; x < 20; x++) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 10);
-			By elemPath = By.xpath("//*[@id=\"DB0_0\"]");
+			By elemPath = By.xpath("//a//div[contains(text(), 'Approve')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
-			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]"));
+			WebElement element = driver.findElement(By.xpath("//a//div[contains(text(), 'Approve')]"));
 			System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Approved DMD PLANNER]");
 			return element;
 		} catch (Exception e) {
@@ -375,7 +358,7 @@ public class nce_end_date{
 	public static void populate_projectDetails(String reqIDVal, String fteDateVal, List<String> dataArryVal) throws Throwable {
 		for (int x = 0; x < 10; x++) {
 		try {
-					WebDriverWait wait = new WebDriverWait(driver, 5);
+					WebDriverWait wait = new WebDriverWait(driver, 10);
 			//Check ProjId with value?
 			if (!reqIDVal.isEmpty()) {
 					invalidataHandler();
@@ -383,18 +366,19 @@ public class nce_end_date{
 					if (currentStatus.trim().contains("Position Created in SP")) {
 						reDefineCheck();
 						if (reDefineCheck()) {
+							statusElemWait();currentStatus = statusWait();
 							reDefine().click();	
 							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REDEFINED");
 						}else {
-							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CFREDENTIAL");
+							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CREDENTIAL");
 							error="CREDENTIAL";break;
 						}
 						
 					}
 					
 					statusElemWait();currentStatus = statusWait();
-
 					Thread.sleep(100);
+					
                 	  if (currentStatus.trim().contains("Cancelled")){
                 		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
                 		  error="[Error] Cancelled Request ID";
@@ -407,18 +391,22 @@ public class nce_end_date{
                 	  }
                 	  if (currentStatus.trim().contains("Ready for Approval")){
                 		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+                		  error="[ERROR] DEMAND ON READY APPROVAL STATE";
                 		  break;
                 	  }
                 	  
 				statusElemWait();currentStatus = statusWait();
-
+				Thread.sleep(100);
 		    	if (currentStatus.trim().contains("In Planning")){
-
+		    		
+		    		System.out.println("Applying the End dates, current status: " + currentStatus);
+		    		
 						//Check FTE with value?
 						if (!fteDateVal.isEmpty()) {
+						forecastEdit().click();
 						fteColHeader().click();
 	                    fteColHeader().click();
-						forecastEdit().click();
+						
 						
 						 
 	                    if (!fteDateVal.isEmpty()) {
@@ -430,6 +418,7 @@ public class nce_end_date{
 	                    if (!error.isEmpty()) {break;}
 
 					   }
+						
 						
 						//Populate create fields
 						for (int ctr = 1; ctr <= 29	; ctr++) {
@@ -463,15 +452,18 @@ public class nce_end_date{
 											Thread.sleep(200);
 											field.sendKeys(dataList.get(ctr+12).trim());
 											field.sendKeys(Keys.TAB);
+											
+											
 									}
 						            
 						          
 
-
-									alertHandler();	if (!error.isEmpty()) {break;}
+									 alertHandler();	if (!error.isEmpty()) {break;}
 									invalidataHandler();if (!error.isEmpty()) {break;}
 									
-						        } catch (Exception e) {}      
+						        } catch (Exception e) {
+						        	//error="[ERROR] FAILED TO END DATE PLM - PLEASE VALIDATE";
+						        }      
 						     }
 						   }			
 				break;
@@ -479,6 +471,7 @@ public class nce_end_date{
 		}
 		    	}
 		} catch (Exception e) {
+			//error="[ERROR] FAILED TO END DATE PLM - PLEASE VALIDATE";
 		}
 		
 	  }
@@ -572,8 +565,8 @@ public class nce_end_date{
             WebElement username = driver.findElement(By.name("username"));
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
-	    	username.sendKeys("ernest.nebre");
-	    	password.sendKeys("!14Stereorama");
+            username.sendKeys("ernest.nebre");
+	    	password.sendKeys("!15Stereorama");
 	    	loginBtn.click();
 			break;
 		} catch (Exception e) {
@@ -721,15 +714,20 @@ public class nce_end_date{
 	public static WebElement completePLM() {
 		for (int x = 0; x < 20; x++) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebDriverWait wait = new WebDriverWait(driver, 10);
 			//Default Value for Primary Skill and Secondary skill
 			WebElement searchTextBoxPrimarySkill= driver.findElement(By.id("REQD.P.PRIMARY_SKILLAC_TF"));
 			WebElement searchTextBoxSecondarySkill= driver.findElement(By.id("REQD.P.SECONDARY_SKILLAC_TF"));
+			//WebElement searchTextBuilding= driver.findElement(By.id("REQD.P.WFM_BUILDING"));
+			
 			
 			// retrieving html attribute value using getAttribute() method
 			String typeValue=searchTextBoxPrimarySkill.getAttribute("value");
 			String typeValueSecondary=searchTextBoxSecondarySkill.getAttribute("value");
+			//String BuildingText=searchTextBuilding.getText();
+			
 			System.out.println("Value of type attribute: "+typeValue);
+			//System.out.println("Value of type attribute: "+BuildingText);
 			
 			if(typeValue.isEmpty())
 			{
@@ -742,6 +740,7 @@ public class nce_end_date{
 				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
 
 				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
+				error="";
 			}
 			
 			if(typeValueSecondary.isEmpty())
@@ -751,7 +750,9 @@ public class nce_end_date{
 				searchTextBoxSecondarySkill.sendKeys("DXC-MICROSOFT OFFICE SUITE");
 
 				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
+				error="";
 			}
+			
 			
 			By elemPath = By.xpath("//a//div[contains(text(), 'Complete PLM')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
@@ -760,7 +761,7 @@ public class nce_end_date{
 			System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> [COMPLETE PLM]");
 			return element;
 		} catch (Exception e) {
-			driver.navigate().refresh();
+			//driver.navigate().refresh();
 			System.out.println("[WAITING] COMPLETE PLM BUTTON");
 		}
 		}
@@ -770,7 +771,7 @@ public class nce_end_date{
 	public static WebElement releaseForAppvl() {
 		for (int x = 0; x < 20; x++) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebDriverWait wait = new WebDriverWait(driver, 15);
 			By elemPath = By.xpath("//a//div[contains(text(), 'Release for Approval')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
@@ -778,7 +779,12 @@ public class nce_end_date{
 			System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [RELEASE FOR APPROVAL]");
 			return element;
 		} catch (Exception e) {
-			driver.navigate().refresh();
+			//driver.navigate().refresh();
+			error="[ERROR] FAILED TO CLICK READY FOR APPROVAL - CHECK PLM";
+			statusElemWait();currentStatus = statusWait();
+			if(!currentStatus.trim().contains("Ready for Approval")) {
+				break;
+			}
 			System.out.println("[WAITING] RELEASE FOR APPROVAL BUTTON");
 		}
 		}
@@ -789,14 +795,18 @@ public class nce_end_date{
 		for (int x = 0; x < 20; x++) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 10);
-			By elemPath = By.xpath("//*[@id=\"DB1_0\"]");
+			By elemPath = By.xpath("//a//div[contains(text(), 'Approve')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
-			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB1_0\"]"));
+			WebElement element = driver.findElement(By.xpath("//a//div[contains(text(), 'Approve')]"));
 			System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Approved ADL]");
 			return element;
 		} catch (Exception e) {
 			driver.navigate().refresh();
+			statusElemWait();currentStatus = statusWait();
+			 if(!currentStatus.trim().contains("Pending ADL Approval")) {
+				 break;
+			 }
 			System.out.println("[WAITING] Approval BUTTON");
 		}
 		}
@@ -806,15 +816,19 @@ public class nce_end_date{
 	 public static WebElement approveAE() {
 	  		for (int x = 0; x < 20; x++) {
 	  		try {
-	  			WebDriverWait wait = new WebDriverWait(driver, 10);
-	  			By elemPath = By.xpath("//*[@id=\"DB1_0\"]");
+	  			WebDriverWait wait = new WebDriverWait(driver, 15);
+	  			By elemPath = By.xpath("//a//div[contains(text(), 'Approve')]");
 	  			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 	  			wait.until(ExpectedConditions.elementToBeClickable(elem));
-	  			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB1_0\"]"));
+	  			WebElement element = driver.findElement(By.xpath("//a//div[contains(text(), 'Approve')]"));
 	  			System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Approved ADL]");
 	  			return element;
 	  		} catch (Exception e) {
 	  			driver.navigate().refresh();
+	  			statusElemWait();currentStatus = statusWait();
+	  			if(!currentStatus.trim().contains("Pending AE Approval")) {
+	  				break;
+	  			}
 	  			System.out.println("[WAITING] Approval BUTTON");
 	  		}
 	  		}
@@ -901,16 +915,16 @@ public class nce_end_date{
 	public static WebElement moveToSp() {
 		for (int x = 0; x < 20; x++) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
-			By elemPath = By.xpath("//*[@id=\"DB0_0\"]");
+			WebDriverWait wait = new WebDriverWait(driver, 15);
+			By elemPath = By.xpath("//a//div[contains(text(), 'Move to SP')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
-			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]"));
+			WebElement element = driver.findElement(By.xpath("//a//div[contains(text(), 'Move to SP')]"));
 			System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Move to SP]");
 			return element;
 		} catch (Exception e) {
 			driver.navigate().refresh();
-			System.out.println("[WAITING] Move yo SP BUTTON");
+			System.out.println("[WAITING] Move to SP BUTTON");
 		}
 		}
 		return null;
@@ -1148,9 +1162,9 @@ public class nce_end_date{
 		}
 	
 	public static boolean reDefineCheck() {
-		for (int x = 0; x < 2; x++) {
+		for (int x = 0; x < 5; x++) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 2);
+			WebDriverWait wait = new WebDriverWait(driver, 15);
 			By elemPath = By.xpath("//div[contains(text(), 'ReDefine Demand')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			if (elem.isDisplayed()) {
@@ -1217,26 +1231,26 @@ public class nce_end_date{
 		return false;
 	}
 	
-	public static boolean approveBtn() {
-		for (int x = 0; x < 20; x++) {
-		try {
-			Thread.sleep(100);
-			WebDriverWait wait = new WebDriverWait(driver, 5);
-			By elemPath = By.id("DB1_0");
-			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-			System.out.println("Approval Button Activated: "+ elem.isDisplayed());
-			if (elem.isDisplayed()) {
-				return true;
-			}else{
-
-				error="Approval button not active";
-				return false;
-			}
-		} catch (Exception e) {
-		}
-		}
-		return false;
-	}
+//	public static boolean approveBtn() {
+//		for (int x = 0; x < 20; x++) {
+//		try {
+//			Thread.sleep(100);
+//			WebDriverWait wait = new WebDriverWait(driver, 5);
+//			By elemPath = By.id("DB1_0");
+//			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+//			System.out.println("Approval Button Activated: "+ elem.isDisplayed());
+//			if (elem.isDisplayed()) {
+//				return true;
+//			}else{
+//
+//				error="Approval button not active";
+//				return false;
+//			}
+//		} catch (Exception e) {
+//		}
+//		}
+//		return false;
+//	}
 	
 	public static boolean accessError() {
 		for (int x = 0; x < 20; x++) {

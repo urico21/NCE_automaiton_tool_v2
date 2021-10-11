@@ -141,47 +141,46 @@ public class nce_create {
 						                		update.executeUpdate();
 						                	statusElemWait();currentStatus = statusWait();
 						                	
+						                	int ctr=0;
+						                	//check which Approval instance will be after Ready for Approval
+						                	do {
 						                	// STATUS: PENDING ADL APPROVAL
-						                	int ctr = 0;
-						                	do {statusElemWait();currentStatus = statusWait();
-						                	  System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >>  APPROVAL RELEASED");
-					                		  System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> " + currentStatus);
-					                		  if(approveBtn() && currentStatus.trim().contains("Pending ADL Approval")) {
+						                	  statusElemWait();currentStatus = statusWait();
+						                	  Thread.sleep(500);
+						                	  if(currentStatus.trim().contains("Pending ADL Approval")) {
+						                		  System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >>  APPROVAL RELEASED");
+						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+						                		  if(approveBtn() && currentStatus.trim().contains("Pending ADL Approval")) {
 						                		  
 						                		   	approveADL().click();
 						                				
-					                		  } else {
-					                			  error="[Error] Approval Button Not Activated"; 
-					                		  }
-					                		  if(ctr == 20) {
-					                			  break;
-					                		  }
-					                		  ctr++;
-					                		  
-						                	} while (currentStatus.trim().contains("Pending ADL Approval"));
-						                	//Get request ID
-						                	reqID = getReqIDt().getAttribute("innerText");
-						                	
-						                	  // STATUS: PENDING AE APPROVAL
-						                	  ctr = 0;
-						                	  do {statusElemWait();currentStatus = statusWait();
-							                	System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >>  APPROVAL RELEASED");
+						                		  } else {
+						                			  error="[Error] Approval Button Not Activated on ADL Approval"; 
+						                			  ongoingUpateWithReqId();
+						                		  }
+						                	  }
+					                		  	// STATUS: PENDING AE APPROVAL
+					                		  	statusElemWait();currentStatus = statusWait();
+						                	  	Thread.sleep(500);
+						                	  	//Get request ID
+							                	reqID = getReqIDt().getAttribute("innerText");
+							                  if(currentStatus.trim().contains("Pending AE Approval")) {
+							                	  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >>  APPROVAL RELEASED");
 						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
-						                		  if(approveAEBtn() && currentStatus.trim().contains("Pending AE Approval")) {
+						                		  if(currentStatus.trim().contains("Pending AE Approval")) {
 						                			  approveAE().click();
 						                										                			  
 						                		  } else {
-						                			  error="[Error] Approval Button Not Activated"; 
+						                			  error="[Error] Approval Button Not Activated on AE Approval"; 
+						                			  ongoingUpateWithReqId();
 						                		  }
-						                		  if(ctr == 20) {
-						                			  break;
-						                		  }
-						                		  ctr++;
-							                	} while (currentStatus.trim().contains("Pending AE Approval"));
+							                  }
+							                } while (currentStatus.trim().contains("Pending ADL Approval")||currentStatus.trim().contains("Pending AE Approval"));
 						                	  
 						                	  // STATUS: PENDING DMD PLANNER APPROVAL
 //						                	  ctr=0;
 //						                	  do {statusElemWait();currentStatus = statusWait();
+//						                	  	  Thread.sleep(500);
 //						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
 //						                		  if(approveBtnDmdPlanner() && currentStatus.trim().contains("Pending Dmd Planner Approval")) {
 //						                			  
@@ -196,58 +195,58 @@ public class nce_create {
 //						                			  
 //						                			  
 //						                		  } else {
-//						                			  error="[Error] Approval Button Not Activated"; 
+//						                			  error="[Error] Approval Button Not Activated on DMD Approval"; 
 //						                		  }
 //						                		  if(ctr == 20) {
 //						                			  break;
 //						                		  }
 //						                		  ctr++;
 //							                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
-				                	  			                	  
+//				                	  			                	  
 						                	  
 							                  // STATUS: PLM APPROVED
 						                	  ctr=0;
 							                  do {statusElemWait();currentStatus = statusWait();
+							                      Thread.sleep(500);
 						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
 						                		  if(currentStatus.trim().contains("PLM Approved")) {
-						                			  
-						                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-						                			  String expectedHeading = "Cancel";
-						                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-						                					 System.out.println("==Refresh Page==");
-						                					 driver.navigate().refresh();
-						                				}else {
-						                					moveToSp().click();
-						                				}
-						                			  
-						                			  
-						                		  } 
-						                		  if(ctr == 20) {
-						                			  break;
-						                		  }
-						                		  ctr++;
+						                			  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+						                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DRIVEN_CH_41\"]")).getText();
+													  System.out.println("No PLM Approved Error: "+HeaderTxt.isEmpty());
+						                			  if(HeaderTxt.isEmpty()) {
+														  error="";
+														  moveToSp().click();
+													  } else {
+														  error="[Error]" + HeaderTxt;
+													  }
+							                	  }
+							                	  ctr++;
+							                      	if(ctr==5) {
+							                      		break;
+							                      	}  
 							                	} while (currentStatus.trim().contains("PLM Approved"));
+							                  
 							                  
 							                  // STATUS: STAFFING APPROVED
 							                  ctr=0;
 							                  do {statusElemWait();currentStatus = statusWait();
-						                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+							                  Thread.sleep(500);
+							                  
 						                		  if(currentStatus.trim().contains("Staffing Approved")) {
-						                			  
-						                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-						                			  String expectedHeading = "Cancel";
-						                				if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-						                					 System.out.println("==Refresh Page==");
-						                					 driver.navigate().refresh();
-						                				}else {
-						                					moveToSp().click();
-						                				}
-						                			 
-						                		  } 
-						                		  if(ctr == 20) {
-						                			  break;
-						                		  }
-						                		  ctr++;
+						                			  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+						                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DRIVEN_CH_41\"]")).getText();
+													  System.out.println("No PLM Approved Error: "+HeaderTxt.isEmpty());
+						                			  if(HeaderTxt.isEmpty()) {
+														  error="";
+														  moveToSp().click();
+													  } else {
+														  error="[Error]" + HeaderTxt;
+													  }
+							                	  }
+							                	  ctr++;
+							                      	if(ctr==5) {
+							                      		break;
+							                      	}  
 							                	} while (currentStatus.trim().contains("Staffing Approved"));
 
 						                	  
@@ -255,6 +254,9 @@ public class nce_create {
 							                  Thread.sleep(1000);
 							                  // STATUS: STAFFING APPROVED
 							                  if (currentStatus.trim().contains("Position Created in SP")) {
+												  error="DONE"; 
+											  }
+							                  if (currentStatus.trim().contains("Pending Org Lead Approval")) {
 												  error="DONE"; 
 											  }
 
@@ -266,11 +268,13 @@ public class nce_create {
 												System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] - REQUEST ID ["+reqID+"] >> [SUCCESSFUL]");
 				                		} else {
 				                			Thread.sleep(500);
+				                			ongoingUpateWithReqId();
 				                			ongoingUpate();
 						                	update.executeUpdate();
 						                	reqID = getReqIDt().getAttribute("innerText");
 						                	System.out.println();
 						                	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] - REQUEST ID ["+reqID+"] >> [SKIPPED]");
+						                	ongoingUpateWithReqId();
 				                		}
 				                		
 
@@ -294,8 +298,10 @@ public class nce_create {
 	    	        	System.out.println("You're here");
 	    	        	ongoingUpate();
 	                	update.executeUpdate();
+	                	ongoingUpateWithReqId();
 	                	System.out.println();
 	                	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [SKIPPED]");
+	                	
 	    	        }
 	    	  		}
 	    			 count.close();
@@ -409,39 +415,43 @@ public class nce_create {
 		return false;
 	}
     
-    public static boolean approveAEBtn() {
-		for (int x = 0; x < 5; x++) {
-		try {
-			WebDriverWait wait = new WebDriverWait(driver, 5);
-			By elemPath = By.id("DB1_0");
-			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-			System.out.println("Approval Button Activated: "+ elem.isDisplayed());
-			if (elem.isDisplayed()) {
-				return true;
-			}else{
-
-				error="Approval button not active";
-				return false;
-			}
-		} catch (Exception e) {
-		}
-		}
-		return false;
-	}
+//    public static boolean approveAEBtn() {
+//		for (int x = 0; x < 5; x++) {
+//		try {
+//			WebDriverWait wait = new WebDriverWait(driver, 5);
+//			By elemPath = By.id("DB1_0");
+//			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+//			System.out.println("Approval Button Activated: "+ elem.isDisplayed());
+//			if (elem.isDisplayed()) {
+//				return true;
+//			}else{
+//
+//				error="Approval button not active";
+//				return false;
+//			}
+//		} catch (Exception e) {
+//		}
+//		}
+//		return false;
+//	}
     
     public static WebElement approveADL() {
 		for (int x = 0; x < 20; x++) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
-			By elemPath = By.xpath("//*[@id=\"DB1_0\"]");
+			WebDriverWait wait = new WebDriverWait(driver, 15);
+			By elemPath = By.xpath("//a//div[contains(text(), 'Approve')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
-			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB1_0\"]"));
-			System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Approved ADL]");
+			WebElement element = driver.findElement(By.xpath("//a//div[contains(text(), 'Approve')]"));
+			System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> [Approved ADL]");
 			return element;
 		} catch (Exception e) {
 			driver.navigate().refresh();
 			System.out.println("[WAITING] Approval BUTTON");
+			statusElemWait();currentStatus = statusWait();
+			if(!currentStatus.trim().contains("Pending ADL Approval")) {
+				break;
+			}
 		}
 		}
 		return null;
@@ -452,15 +462,20 @@ public class nce_create {
   		for (int x = 0; x < 20; x++) {
   		try {
   			WebDriverWait wait = new WebDriverWait(driver, 10);
-  			By elemPath = By.xpath("//*[@id=\"DB1_0\"]");
+  			By elemPath = By.xpath("//a//div[contains(text(), 'Approve')]");
   			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
   			wait.until(ExpectedConditions.elementToBeClickable(elem));
-  			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB1_0\"]"));
+  			WebElement element = driver.findElement(By.xpath("//div[contains(text(), 'Approve')]"));
   			System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Approved ADL]");
   			return element;
   		} catch (Exception e) {
+  			
   			driver.navigate().refresh();
   			System.out.println("[WAITING] Approval BUTTON");
+  			statusElemWait();currentStatus = statusWait();
+			if(!currentStatus.trim().contains("Pending AE Approval")) {
+				break;
+			}
   		}
   		}
   		return null;
@@ -470,10 +485,10 @@ public class nce_create {
 		for (int x = 0; x < 20; x++) {
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 10);
-			By elemPath = By.xpath("//*[@id=\"DB0_0\"]");
+			By elemPath = By.xpath("//a//div[contains(text(), 'Move to SP')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
-			WebElement element = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]"));
+			WebElement element = driver.findElement(By.xpath("//a//div[contains(text(), 'Move to SP')]"));
 			System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Move to SP]");
 			return element;
 		} catch (Exception e) {
@@ -622,16 +637,29 @@ public class nce_create {
 			            prop.load(input);
 			            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
 			            
-						if (ctr==11){
-							WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
-							 element.click();
-							 System.out.println(element.isSelected());
-							 if(!element.isSelected()) {
+						if (ctr==27){
+							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
+			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
 								 element.click();
-							 }
-							
+								 System.out.println(element.isSelected());
+								 if(!element.isSelected()) {
+									 element.click();
+								 }
+			            	}
+			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
+			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
+								 element.click();
+								 System.out.println(element.isSelected());
+								 if(!element.isSelected()) {
+									 element.click();
+								 }  
+			            	}
 						}
-
+					
+							
+							
+						
+						
 				            By fieldPath = By.id(prop.getProperty(ctrStr));
 							wait.until(ExpectedConditions.presenceOfElementLocated(fieldPath));
 							wait.until(ExpectedConditions.elementToBeClickable(fieldPath));
@@ -735,7 +763,7 @@ public class nce_create {
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
 	    	username.sendKeys("ernest.nebre");
-	    	password.sendKeys("!14Stereorama");
+	    	password.sendKeys("!15Stereorama");
 	    	loginBtn.click();
 			break;
 		} catch (Exception e) {
