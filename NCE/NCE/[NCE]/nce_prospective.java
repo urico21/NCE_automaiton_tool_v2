@@ -135,8 +135,64 @@ public class nce_prospective {
 						                	completePLM().click();
 						    					ongoingUpate();
 						    					update.executeUpdate();	
-						    					projUnsold().click();
-						    					indicatorES().click();
+						    					
+						    					dataList.clear();
+							                	for (int count=1; count <= 47;count++) {
+							                		dataList.add(rs.getString(count));
+							                	}
+							        			for (int ctr = 1; ctr <= 34; ctr++) {
+							       				 String ctrStr=Integer.toString(ctr);
+							       				 System.out.print("."); 
+							       		         System.out.flush();
+							       				 try (InputStream input = new FileInputStream("src/main/resources/properties/elements.properties")) {
+							       			            Properties prop = new Properties();
+							       			            prop.load(input);
+							       			            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
+							       			            
+							       						if (ctr==32){
+							       							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
+							       			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_Y"));
+							       								 element.click();
+							       								 System.out.println(element.isSelected());
+							       								 if(!element.isSelected()) {
+							       									 element.click();
+							       								 }
+							       			            	}
+							       			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
+							       			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_N"));
+							       								 element.click();
+							       								 System.out.println(element.isSelected());
+							       								 if(!element.isSelected()) {
+							       									 element.click();
+							       								 }  
+							       			            	} 
+							       							
+							       						}
+							       						
+							       						if (ctr==33){
+							       							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
+							       			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));
+							       								 element.click();
+							       								 System.out.println(element.isSelected());
+							       								 if(!element.isSelected()) {
+							       									 element.click();
+							       								 }
+							       			            	}
+							       			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
+							       			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N"));
+							       								 element.click();
+							       								 System.out.println(element.isSelected());
+							       								 if(!element.isSelected()) {
+							       									 element.click();
+							       								 }  
+							       			            	} 
+							       							
+							       						}
+							       				 }
+							        			}
+							        			
+//						    					projUnsold().click();
+//						    					indicatorES().click();
 						                	releaseForAppvl().click();
 						                		ongoingUpate();
 						                		update.executeUpdate();
@@ -654,7 +710,7 @@ public class nce_prospective {
 			            prop.load(input);
 			            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
 			            
-						if (ctr==27){
+						if (ctr==26){
 							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
 								 element.click();
@@ -673,44 +729,7 @@ public class nce_prospective {
 			            	} 
 							
 						}
-						
-						if (ctr==33){
-							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
-			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_Y"));
-								 element.click();
-								 System.out.println(element.isSelected());
-								 if(!element.isSelected()) {
-									 element.click();
-								 }
-			            	}
-			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
-			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_N"));
-								 element.click();
-								 System.out.println(element.isSelected());
-								 if(!element.isSelected()) {
-									 element.click();
-								 }  
-			            	}
-						}
-						
-						if (ctr==34){
-							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
-			            		WebElement element = driver.findElement(By.id("RREQD.P.WFM_EARLY_STAFF_FLAG_Y"));
-								 element.click();
-								 System.out.println(element.isSelected());
-								 if(!element.isSelected()) {
-									 element.click();
-								 }
-			            	}
-			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
-			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N"));
-								 element.click();
-								 System.out.println(element.isSelected());
-								 if(!element.isSelected()) {
-									 element.click();
-								 }  
-			            	}
-						}						
+												
 				            By fieldPath = By.id(prop.getProperty(ctrStr));
 							wait.until(ExpectedConditions.presenceOfElementLocated(fieldPath));
 							wait.until(ExpectedConditions.elementToBeClickable(fieldPath));
@@ -735,20 +754,20 @@ public class nce_prospective {
 						Thread.sleep(1000);
 						//Using Default Values if data Fails
 						if (!error.isEmpty()) {
-							if(ctr==6) {
+							if(ctr==5) {
 								error="";
 								System.out.println("Using Default Value for Requested Resource");
 								field.sendKeys("");
 
 								field.sendKeys(Keys.TAB);
-							}else if (ctr==24) {
+							}else if (ctr==23) {
 								error="";
 								System.out.println("Using Default Value for Primary Skill");
 								field.sendKeys("DXC-ITIL GENERAL");
 
 								field.sendKeys(Keys.TAB);
 							}
-							else if (ctr==26) {
+							else if (ctr==25) {
 								error="";
 								System.out.println("Using Default Value for Secondary Skill");
 								field.sendKeys("DXC-MICROSOFT OFFICE SUITE");

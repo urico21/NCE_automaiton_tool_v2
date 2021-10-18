@@ -119,7 +119,7 @@ public class nce_end_date{
 				                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 
 						                	dataList.clear();
-						                	for (int count=1; count <= 42;count++) {
+						                	for (int count=1; count <= 41;count++) {
 						                		dataList.add(rs.getString(count));
 						                	}
 						                	
@@ -424,14 +424,14 @@ public class nce_end_date{
 						for (int ctr = 1; ctr <= 29	; ctr++) {
 							 String ctrStr=Integer.toString(ctr);
 							
-						if (!dataList.get(ctr+12).isEmpty()) {
+						if (!dataList.get(ctr+11).isEmpty()) {
 							 try (InputStream input = new FileInputStream("src/main/resources/properties/elements.properties")) {
 						            Properties prop = new Properties();
 						            prop.load(input);
 						            
-						            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
+						            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+11));
 									
-						            if (ctr==3) {
+						            if (ctr==2) {
 						            	System.out.println("Country");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.COUNTRY")));
 

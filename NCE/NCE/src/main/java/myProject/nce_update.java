@@ -46,6 +46,7 @@ public class nce_update {
     protected static WebDriver driver;
     protected static String id;
 	protected static String requestIdStr;
+	protected static String positionID;
 	protected static String fteDateStr;
 	protected static String reasonStr;
 	protected static String parallelKey;
@@ -485,53 +486,53 @@ public class nce_update {
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));
-									} else if(ctr==12) {
+									} else if(ctr==11) {
 						            	System.out.println("Reason Position Needed");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));
-									} else if(ctr==11) {
+									} else if(ctr==10) {
 						            	System.out.println("Bill Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_BILL_TYPE")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));
-									} else if(ctr==10) {
+									} else if(ctr==9) {
 						            	System.out.println("Resource Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_RESOURCE_TYPE")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));
 										
-									} else if(ctr==22) {
+									} else if(ctr==21) {
 						            	System.out.println("Language Aptitude");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.SPOKEN_LANG_APTITUDE")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));	
-									} else if(ctr==24) {
+									} else if(ctr==23) {
 						            	System.out.println("Primary Skill Aptitude");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.PRIMARY_SKILL_APTITUDE")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));
 										
-									} else if(ctr==26) {
+									} else if(ctr==25) {
 						            	System.out.println("Secondary Skill Aptitude");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.SECONDARY_SKILL_APTITUDE")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));	
 										
-									} else if(ctr==28) {
+									} else if(ctr==27) {
 						            	System.out.println("Position Work Location");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_LOC_ALIGN_TO_WPG")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));
 										
-									} else if(ctr==27) {
+									} else if(ctr==26) {
 						            	System.out.println("Location Conts Constrained");
 						            	if(dataList.get(ctr+10).toLowerCase().contains("yes")) {
 						            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
@@ -562,7 +563,7 @@ public class nce_update {
 											field.clear();
 										}
 										
-										if(ctr==17 || ctr==18) {
+										if(ctr==16 || ctr==17) {
 			
 											Thread.sleep(200);
 											field.clear();
@@ -1084,7 +1085,7 @@ public class nce_update {
 			 update.setString(2, requestIdStr);
 	         update.setString(3, currentStatus);
 	         update.setLong(4, timeElapsedRec.toMillis());
-	         update.setString(5, thread);
+		     update.setString(5, positionID);
 	         update.setString(6, id);
 	         Thread.sleep(2000);
 	         break;
@@ -1094,7 +1095,26 @@ public class nce_update {
 		}		
 	}
 	
-
+	public static boolean positionId() {
+		for (int x = 0; x < 20; x++) {
+		try {
+			Thread.sleep(100);
+			WebDriverWait wait = new WebDriverWait(driver, 5);
+			String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DRIVEN_P_7\"]")).getText();
+			By elemPath = By.id("DRIVEN_P_7");
+			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+			if (elem.isDisplayed()) {
+				System.out.println("[Position ID]"+HeaderTxt);
+				positionID = HeaderTxt;
+				return true;
+			}else{
+				return false;
+			}
+		} catch (Exception e) {
+		}
+		}
+		return false;
+	}
 
 	
 	public static WebElement reqID() {

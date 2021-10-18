@@ -1,4 +1,3 @@
-
 package myProject;
 
 import static java.lang.System.exit;
@@ -120,7 +119,7 @@ public class nce_extension {
 				                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 
 						                	dataList.clear();
-						                	for (int count=1; count <= 42;count++) {
+						                	for (int count=1; count <= 41;count++) {
 						                		dataList.add(rs.getString(count));
 						                	}
 						                	
@@ -487,20 +486,20 @@ public class nce_extension {
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+11));
-									} else if(ctr==12) {
+									} else if(ctr==11) {
 						            	System.out.println("Reason Position Needed");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+11));
-									} else if(ctr==11) {
+									} else if(ctr==10) {
 						            	System.out.println("Bill Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_BILL_TYPE")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+11));
 										
-									} else if(ctr==10) {
+									} else if(ctr==9) {
 						            	System.out.println("Resource Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_RESOURCE_TYPE")));
 
@@ -513,32 +512,32 @@ public class nce_extension {
 //
 //											DropDown.selectByIndex(0);
 //											DropDown.selectByVisibleText(dataList.get(ctr+11));	
-									} else if(ctr==24) {
+									} else if(ctr==23) {
 							            	System.out.println("Primary Skill Aptitude");
 											Select DropDown = new Select(driver.findElement(By.id("REQD.P.PRIMARY_SKILL_APTITUDE")));
 
 											DropDown.selectByIndex(0);
 											DropDown.selectByVisibleText(dataList.get(ctr+11));
 											
-									} else if(ctr==26) {
+									} else if(ctr==25) {
 							            	System.out.println("Secondary Skill Aptitude");
 											Select DropDown = new Select(driver.findElement(By.id("REQD.P.SECONDARY_SKILL_APTITUDE")));
 
 											DropDown.selectByIndex(0);
 											DropDown.selectByVisibleText(dataList.get(ctr+11));	
 											
-									} else if(ctr==28) {
+									} else if(ctr==27) {
 						            	System.out.println("Position Work Location");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_LOC_ALIGN_TO_WPG")));
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+11));
 										
-									}else if(ctr==20) {
+									}else if(ctr==19) {
 						            		System.out.println("Migration ID");
 											searchTextBoxMigID.sendKeys(dataList.get(ctr+11).trim());
 										
-									} else if(ctr==27) {
+									} else if(ctr==26) {
 						            	System.out.println("Location Conts Constrained");
 						            	if(dataList.get(ctr+11).toLowerCase().contains("yes")) {
 						            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
@@ -570,7 +569,7 @@ public class nce_extension {
 										}
 										
 										
-										if(ctr==17 && ctr==18) {
+										if(ctr==16 && ctr==17) {
 											Thread.sleep(200);
 											field.clear();
 											field.sendKeys(dataList.get(ctr+11).trim());

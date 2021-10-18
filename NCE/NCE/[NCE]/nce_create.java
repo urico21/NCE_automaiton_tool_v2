@@ -111,7 +111,7 @@ public class nce_create {
 				                	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> PROCESSING");
 				                	
 				                	dataList.clear();
-				                	for (int count=1; count <= 47;count++) {
+				                	for (int count=1; count <= 46;count++) {
 				                		dataList.add(rs.getString(count));
 				                	}
 				                	
@@ -637,7 +637,7 @@ public class nce_create {
 			            prop.load(input);
 			            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
 			            
-						if (ctr==27){
+						if (ctr==26){
 							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
 								 element.click();
@@ -684,20 +684,20 @@ public class nce_create {
 						Thread.sleep(1000);
 						//Using Default Values if data Fails
 						if (!error.isEmpty()) {
-							if(ctr==6) {
+							if(ctr==7) {
 								error="";
 								System.out.println("Using Default Value for Requested Resource");
 								field.sendKeys("");
 
 								field.sendKeys(Keys.TAB);
-							}else if (ctr==23) {
+							}else if (ctr==22) {
 								error="";
 								System.out.println("Using Default Value for Primary Skill");
 								field.sendKeys("DXC-ITIL GENERAL");
 
 								field.sendKeys(Keys.TAB);
 							}
-							else if (ctr==25) {
+							else if (ctr==24) {
 								error="";
 								System.out.println("Using Default Value for Secondary Skill");
 								field.sendKeys("DXC-MICROSOFT OFFICE SUITE");
