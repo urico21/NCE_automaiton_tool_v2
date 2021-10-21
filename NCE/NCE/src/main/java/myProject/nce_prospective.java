@@ -135,64 +135,9 @@ public class nce_prospective {
 						                	completePLM().click();
 						    					ongoingUpate();
 						    					update.executeUpdate();	
-						    					
-						    					dataList.clear();
-							                	for (int count=1; count <= 47;count++) {
-							                		dataList.add(rs.getString(count));
-							                	}
-							        			for (int ctr = 1; ctr <= 34; ctr++) {
-							       				 String ctrStr=Integer.toString(ctr);
-							       				 System.out.print("."); 
-							       		         System.out.flush();
-							       				 try (InputStream input = new FileInputStream("src/main/resources/properties/elements.properties")) {
-							       			            Properties prop = new Properties();
-							       			            prop.load(input);
-							       			            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
+						    					projUnsold(dataList).click();
+						    					indicatorES(dataList).click();
 							       			            
-							       						if (ctr==32){
-							       							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
-							       			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_Y"));
-							       								 element.click();
-							       								 System.out.println(element.isSelected());
-							       								 if(!element.isSelected()) {
-							       									 element.click();
-							       								 }
-							       			            	}
-							       			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
-							       			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_N"));
-							       								 element.click();
-							       								 System.out.println(element.isSelected());
-							       								 if(!element.isSelected()) {
-							       									 element.click();
-							       								 }  
-							       			            	} 
-							       							
-							       						}
-							       						
-							       						if (ctr==33){
-							       							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
-							       			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));
-							       								 element.click();
-							       								 System.out.println(element.isSelected());
-							       								 if(!element.isSelected()) {
-							       									 element.click();
-							       								 }
-							       			            	}
-							       			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
-							       			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N"));
-							       								 element.click();
-							       								 System.out.println(element.isSelected());
-							       								 if(!element.isSelected()) {
-							       									 element.click();
-							       								 }  
-							       			            	} 
-							       							
-							       						}
-							       				 }
-							        			}
-							        			
-//						    					projUnsold().click();
-//						    					indicatorES().click();
 						                	releaseForAppvl().click();
 						                		ongoingUpate();
 						                		update.executeUpdate();
@@ -572,43 +517,65 @@ public class nce_prospective {
 		return null;
 	}
     
-    public static WebElement projUnsold() {
+    public static WebElement projUnsold(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
-    		try {
-    			//Early Staffing Indicator to Yes
-    			WebDriverWait wait = new WebDriverWait(driver, 10);
-    			By elemPath = By.id("REQD.P.WFM_PROJECT_SOLD_N");
-    			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-    			wait.until(ExpectedConditions.elementToBeClickable(elem)); 
-    			WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_N"));	
-    			System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Project Sold >> No]");
-    			return element;
-    		}catch (Exception e) {
-    			driver.navigate().refresh();
-    			System.out.println("[WAITING] Move to SP BUTTON");
-    		}
+    	try {
+    	if(dataList.get(45).toLowerCase().contains("no")) {
+    	//Project Sold to No
+    	WebDriverWait wait = new WebDriverWait(driver, 10);
+    	By elemPath = By.id("REQD.P.WFM_PROJECT_SOLD_N");
+    	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+    	wait.until(ExpectedConditions.elementToBeClickable(elem));
+    	WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_N"));
+    	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Project Sold >> No]");
+    	return element;
+    	}else {
+    	//Project Sold to Yes
+    	WebDriverWait wait = new WebDriverWait(driver, 10);
+    	By elemPath = By.id("REQD.P.WFM_PROJECT_SOLD_Y");
+    	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+    	wait.until(ExpectedConditions.elementToBeClickable(elem));
+    	WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_Y"));
+    	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Project Sold >> Yes]");
+    	return element;
+    	}
+    	}catch (Exception e) {
+    	driver.navigate().refresh();
+    	System.out.println("[WAITING] Ready for Approval");
+    	}
     	}
     	return null;
-    }
+    	}
     
-    public static WebElement indicatorES() {
+    public static WebElement indicatorES(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     		try {
-    			//Early Staffing Indicator to Yes
-    			WebDriverWait wait = new WebDriverWait(driver, 10);
-    			By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y");
-    			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-    			wait.until(ExpectedConditions.elementToBeClickable(elem)); 
-    			WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));	
-    			System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [ES Indicator >> Yes]");
-    			return element;
-    		}catch (Exception e) {
-    			driver.navigate().refresh();
-    			System.out.println("[WAITING] Move to SP BUTTON");
-    		}
-    	}
-    	return null;
-    }
+        	if(dataList.get(46).toLowerCase().contains("Yes")) {
+            	//Early Staffing Indicator to No
+            	WebDriverWait wait = new WebDriverWait(driver, 10);
+            	By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y");
+            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+            	wait.until(ExpectedConditions.elementToBeClickable(elem));
+            	WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));
+            	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Early Staffing >> Yes]");
+            	return element;
+            	}else {
+            	//Early Staffing Indicator to Yes
+            	WebDriverWait wait = new WebDriverWait(driver, 10);
+            	By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N");
+            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+            	wait.until(ExpectedConditions.elementToBeClickable(elem));
+            	WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N"));
+            	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Early Staffing >> No]");
+            	return element;
+            	}
+            	}catch (Exception e) {
+            	driver.navigate().refresh();
+            	System.out.println("[WAITING] Ready for Approval");
+            	}
+            	}
+            	return null;
+            	}
     
    
 	public static WebElement approveES() {
