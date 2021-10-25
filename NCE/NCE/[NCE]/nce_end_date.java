@@ -680,7 +680,7 @@ public class nce_end_date{
 			By elemPath = By.id("DRIVEN_P_7");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			if (elem.isDisplayed()) {
-				System.out.println("[Potition ID]"+HeaderTxt);
+				System.out.println("[Position ID]"+HeaderTxt);
 				positionID = HeaderTxt;
 				return true;
 			}else{

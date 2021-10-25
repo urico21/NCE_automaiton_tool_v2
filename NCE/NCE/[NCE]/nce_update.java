@@ -1085,7 +1085,7 @@ public class nce_update {
 			 update.setString(2, requestIdStr);
 	         update.setString(3, currentStatus);
 	         update.setLong(4, timeElapsedRec.toMillis());
-		     update.setString(5, positionID);
+		     update.setString(5, thread);
 	         update.setString(6, id);
 	         Thread.sleep(2000);
 	         break;

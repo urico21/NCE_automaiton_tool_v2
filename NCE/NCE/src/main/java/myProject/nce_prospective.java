@@ -520,22 +520,23 @@ public class nce_prospective {
     public static WebElement projUnsold(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     	try {
-    	if(dataList.get(45).toLowerCase().contains("no")) {
+    	if(dataList.get(45).toLowerCase().contains("yes")) {
     	//Project Sold to No
-    	WebDriverWait wait = new WebDriverWait(driver, 10);
-    	By elemPath = By.id("REQD.P.WFM_PROJECT_SOLD_N");
-    	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-    	wait.until(ExpectedConditions.elementToBeClickable(elem));
-    	WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_N"));
-    	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Project Sold >> No]");
-    	return element;
-    	}else {
-    	//Project Sold to Yes
     	WebDriverWait wait = new WebDriverWait(driver, 10);
     	By elemPath = By.id("REQD.P.WFM_PROJECT_SOLD_Y");
     	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
     	wait.until(ExpectedConditions.elementToBeClickable(elem));
     	WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_Y"));
+    	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Project Sold >> No]");
+    	return element;
+    	}
+    	else if (dataList.get(45).toLowerCase().contains("yes")){
+    	//Project Sold to Yes
+    	WebDriverWait wait = new WebDriverWait(driver, 10);
+    	By elemPath = By.id("REQD.P.WFM_PROJECT_SOLD_N");
+    	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+    	wait.until(ExpectedConditions.elementToBeClickable(elem));
+    	WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_N"));
     	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Project Sold >> Yes]");
     	return element;
     	}
@@ -550,7 +551,7 @@ public class nce_prospective {
     public static WebElement indicatorES(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     		try {
-        	if(dataList.get(46).toLowerCase().contains("Yes")) {
+        	if(dataList.get(46).toLowerCase().contains("yes")) {
             	//Early Staffing Indicator to No
             	WebDriverWait wait = new WebDriverWait(driver, 10);
             	By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y");
@@ -559,7 +560,8 @@ public class nce_prospective {
             	WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));
             	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Early Staffing >> Yes]");
             	return element;
-            	}else {
+            	}
+        	else if (dataList.get(46).toLowerCase().contains("no")) {
             	//Early Staffing Indicator to Yes
             	WebDriverWait wait = new WebDriverWait(driver, 10);
             	By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N");
