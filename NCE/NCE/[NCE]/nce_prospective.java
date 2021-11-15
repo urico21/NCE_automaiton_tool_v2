@@ -684,6 +684,15 @@ public class nce_prospective {
 			            	} 
 							
 						}
+						
+						if (ctr==33) {
+			            	System.out.println("Client Interview");
+							Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
+
+							DropDown.selectByIndex(0);
+							DropDown.selectByVisibleText(dataList.get(ctr+12));
+						}
+						
 												
 				            By fieldPath = By.id(prop.getProperty(ctrStr));
 							wait.until(ExpectedConditions.presenceOfElementLocated(fieldPath));

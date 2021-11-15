@@ -175,6 +175,23 @@ public class nce_end_date{
 							                		completePLM().click();
 							                	}
 							                	
+							                	alertHandler();	if (!error.isEmpty()) {
+													try {
+							                           	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> Deleting FTE RECORDS"); 
+															editFTE_deleteExisiting();
+														} catch (Throwable e) {
+															// TODO Auto-generated catch block
+															e.printStackTrace();
+														}
+							                		
+							                		populate_projectDetails(requestIdStr, fteDateStr, dataList);
+													}
+												
+												invalidataHandler();if (!error.isEmpty()) {
+													System.out.println("[ERROR]:"+error);
+													}
+						
+							                	
 							                	  //STATUS: READY FOR APPROVAL (With Data issue encountered)
 												  statusElemWait();currentStatus = statusWait();
 												  Thread.sleep(500);
@@ -185,9 +202,20 @@ public class nce_end_date{
 							                			  error="[Error] Approval Button Not Activated - Release for Approval"; 
 							                	  } 
 												  
-							                	
+//							                	if(driver.findElement(By.xpath("//*[@id=\"DRIVEN_CH_41\"]")).getText().contains("Overlapping")) {
+//							                		try {
+//							                           	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> Deleting FTE RECORDS"); 
+//															editFTE_deleteExisiting();
+//														} catch (Throwable e) {
+//															// TODO Auto-generated catch block
+//															e.printStackTrace();
+//														}
+//							                		
+//							                		populate_projectDetails(requestIdStr, fteDateStr, dataList);
+//							                	}
+//												  
 							                	alertHandler();	if (!error.isEmpty()) {
-													System.out.println("[ERROR]:"+error);
+							                		System.out.println("[ERROR]:"+error);
 													}
 												
 												invalidataHandler();if (!error.isEmpty()) {
@@ -229,24 +257,24 @@ public class nce_end_date{
 								                	} while (currentStatus.trim().contains("Pending ADL Approval")||currentStatus.trim().contains("Pending AE Approval"));
 								                	
 							                	 	//CHECK IF DMD APPROVAL					                  
-								                	do {statusElemWait();currentStatus = statusWait();
-							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
-							                		  if(approveBtnDmdPlanner() && currentStatus.trim().contains("Pending Dmd Planner Approval")) {
-							                			  
-							                			//CHECK IF CANCEL BUTTON I SHOWNED IN PLM APPROVED, REFRESH PAGE IF YES
-							                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
-							                			  String expectedHeading = "Cancel";
-							              					if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
-							              						 System.out.println("==Refresh Page==");
-							              						 driver.navigate().refresh();
-							              					}else {
-							                			    approveADLDmdPlanner().click();
-							              					}
-							              					
-							                		  } else {
-							                			  error="[Error] Approval Button Not Activated on DMD Approval"; 
-							                		  }
-								                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
+//								                	do {statusElemWait();currentStatus = statusWait();
+//							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+//							                		  if(approveBtnDmdPlanner() && currentStatus.trim().contains("Pending Dmd Planner Approval")) {
+//							                			  
+//							                			//CHECK IF CANCEL BUTTON I SHOWNED IN PLM APPROVED, REFRESH PAGE IF YES
+//							                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
+//							                			  String expectedHeading = "Cancel";
+//							              					if(expectedHeading.equalsIgnoreCase(HeaderTxt)) {
+//							              						 System.out.println("==Refresh Page==");
+//							              						 driver.navigate().refresh();
+//							              					}else {
+//							                			    approveADLDmdPlanner().click();
+//							              					}
+//							              					
+//							                		  } else {
+//							                			  error="[Error] Approval Button Not Activated on DMD Approval"; 
+//							                		  }
+//								                	} while (currentStatus.trim().contains("Pending Dmd Planner Approval"));
 								                	
 
 								                	  //PLM APPROVAL
@@ -368,6 +396,7 @@ public class nce_end_date{
 						if (reDefineCheck()) {
 							statusElemWait();currentStatus = statusWait();
 							reDefine().click();	
+							Thread.sleep(300);
 							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REDEFINED");
 						}else {
 							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CREDENTIAL");
@@ -403,6 +432,7 @@ public class nce_end_date{
 		    		
 						//Check FTE with value?
 						if (!fteDateVal.isEmpty()) {
+							Thread.sleep(1000);
 						forecastEdit().click();
 						fteColHeader().click();
 	                    fteColHeader().click();
@@ -410,6 +440,7 @@ public class nce_end_date{
 						
 						 
 	                    if (!fteDateVal.isEmpty()) {
+	                    	Thread.sleep(1000);
 	                 	   forecastEndDate().clear();
 	                 	   forecastEndDate().sendKeys(fteDateVal);
 	                 	   forecastEndDate().sendKeys(Keys.TAB);
@@ -1309,7 +1340,7 @@ public class nce_end_date{
 
 
 	 						if(DEL_BTN_CLASS.contentEquals("tc-btn-enabled")) {
-	 							bol = true;
+	 							bol = false;
 	 							
 	 						}
 	 						else {

@@ -111,7 +111,7 @@ public class nce_create {
 				                	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> PROCESSING");
 				                	
 				                	dataList.clear();
-				                	for (int count=1; count <= 46;count++) {
+				                	for (int count=1; count <= 45;count++) {
 				                		dataList.add(rs.getString(count));
 				                	}
 				                	
@@ -628,7 +628,7 @@ public class nce_create {
 			
 			
 			//Populate create fields
-			for (int ctr = 1; ctr <= 32; ctr++) {
+			for (int ctr = 1; ctr <= 34; ctr++) {
 				 String ctrStr=Integer.toString(ctr);
 				 System.out.print("."); 
 		         System.out.flush();
@@ -646,7 +646,7 @@ public class nce_create {
 									 element.click();
 								 }
 			            	}
-			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
+							else if (dataList.get(ctr+12).toLowerCase().contains("no")) {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
 								 element.click();
 								 System.out.println(element.isSelected());
@@ -654,6 +654,14 @@ public class nce_create {
 									 element.click();
 								 }  
 			            	}
+						}
+						
+						else if (ctr==31) {
+			            	System.out.println("Client Interview");
+							Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
+
+							DropDown.selectByIndex(0);
+							DropDown.selectByVisibleText(dataList.get(ctr+12));
 						}
 					
 							

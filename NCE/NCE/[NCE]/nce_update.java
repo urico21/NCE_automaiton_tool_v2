@@ -531,6 +531,13 @@ public class nce_update {
 
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));
+									
+									} else if(ctr==32) {
+						            	System.out.println("Client Interview");
+										Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
+
+										DropDown.selectByIndex(0);
+										DropDown.selectByVisibleText(dataList.get(ctr+10));
 										
 									} else if(ctr==26) {
 						            	System.out.println("Location Conts Constrained");
