@@ -642,7 +642,7 @@ public class nce_create {
 				            	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
 				            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 				            	wait.until(ExpectedConditions.elementToBeClickable(elem));
-			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
+			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
 								 element.click();
 								 System.out.println(element.isSelected());
 								 if(!element.isSelected()) {
