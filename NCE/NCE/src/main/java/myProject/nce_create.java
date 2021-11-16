@@ -133,6 +133,7 @@ public class nce_create {
 				                		if(error.isEmpty()) {
 						                	reqID().click();
 						                	Thread.sleep(500);
+						                    locCons(dataList).click();
 						                	completePLM().click();
 						    					ongoingUpate();
 						    					update.executeUpdate();	
@@ -518,24 +519,36 @@ public class nce_create {
     	return null;
     }
     
-    public static WebElement indicatorES() {
+    public static WebElement locCons(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     		try {
-    			//Early Staffing Indicator to Yes
-    			WebDriverWait wait = new WebDriverWait(driver, 10);
-    			By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y");
-    			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-    			wait.until(ExpectedConditions.elementToBeClickable(elem)); 
-    			WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));	
-    			System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [ES Indicator >> Yes]");
-    			return element;
-    		}catch (Exception e) {
-    			driver.navigate().refresh();
-    			System.out.println("[WAITING] Move to SP BUTTON");
-    		}
-    	}
-    	return null;
-    }
+    		if(dataList.get(39).toLowerCase().contains("no")) {
+            	//Early Staffing Indicator to No
+            	WebDriverWait wait = new WebDriverWait(driver, 10);
+            	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
+            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+            	wait.until(ExpectedConditions.elementToBeClickable(elem));
+            	WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
+               	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Location Constrained >> No]");
+            	return element;
+            	}
+        	else {
+            	//Early Staffing Indicator to Yes
+            	WebDriverWait wait = new WebDriverWait(driver, 10);
+            	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y");
+            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+            	wait.until(ExpectedConditions.elementToBeClickable(elem));
+            	WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
+            	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Location Constrained >> Yes]");
+            	return element;
+            	}
+            	}catch (Exception e) {
+            	driver.navigate().refresh();
+            	System.out.println("[WAITING] Ready for Approval");
+            	}
+            	}
+            	return null;
+            	}
     
    
 	public static WebElement approveES() {
@@ -637,6 +650,7 @@ public class nce_create {
 			            prop.load(input);
 			            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
 			            
+
 						if (ctr==26){
 							if(dataList.get(ctr+12).toLowerCase().contains("no")) {			            	
 				            	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
@@ -993,6 +1007,7 @@ public class nce_create {
 //				searchTextBoxSecondarySkill.sendKeys(Keys.TAB);
 //			}
 			
+
 			By elemPath = By.xpath("//a//div[contains(text(), 'Complete PLM')]");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
