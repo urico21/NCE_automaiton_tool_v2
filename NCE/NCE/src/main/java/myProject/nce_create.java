@@ -638,16 +638,22 @@ public class nce_create {
 			            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+12));
 			            
 						if (ctr==26){
-							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
+							if(dataList.get(ctr+12).toLowerCase().contains("no")) {			            	
+				            	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
+				            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+				            	wait.until(ExpectedConditions.elementToBeClickable(elem));
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
 								 element.click();
 								 System.out.println(element.isSelected());
 								 if(!element.isSelected()) {
 									 element.click();
 								 }
-			            	}
-							else if (dataList.get(ctr+12).toLowerCase().contains("no")) {
-			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
+			            	}else 
+			            	{
+								By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y");
+				            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+				            	wait.until(ExpectedConditions.elementToBeClickable(elem));
+			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
 								 element.click();
 								 System.out.println(element.isSelected());
 								 if(!element.isSelected()) {
