@@ -136,6 +136,7 @@ public class nce_prospective {
 						    					ongoingUpate();
 						    					update.executeUpdate();	
 						       					projUnsold().click();
+						       					Thread.sleep(100);
 						    					indicatorES(dataList).click();	
 						    					Thread.sleep(500);
 						                	releaseForAppvl().click();
@@ -668,19 +669,13 @@ public class nce_prospective {
 						if (ctr==26){
 							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
-								 element.click();
+			            		element.click();
 								 System.out.println(element.isSelected());
-								 if(!element.isSelected()) {
-									 element.click();
-								 }
 			            	}
 			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
 								 element.click();
-								 System.out.println(element.isSelected());
-								 if(!element.isSelected()) {
-									 element.click();
-								 }  
+								 System.out.println(element.isSelected()); 
 			            	} 
 							
 						}

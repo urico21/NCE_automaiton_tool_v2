@@ -659,9 +659,6 @@ public class nce_create {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
 								 element.click();
 								 System.out.println(element.isSelected());
-								 if(!element.isSelected()) {
-									 element.click();
-								 }
 			            	}else 
 			            	{
 								By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y");
@@ -670,9 +667,6 @@ public class nce_create {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
 								 element.click();
 								 System.out.println(element.isSelected());
-								 if(!element.isSelected()) {
-									 element.click();
-								 }  
 			            	}
 						}
 						

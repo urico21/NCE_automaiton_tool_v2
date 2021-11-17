@@ -175,21 +175,21 @@ public class nce_end_date{
 							                		completePLM().click();
 							                	}
 							                	
-							                	alertHandler();	if (!error.isEmpty()) {
-													try {
-							                           	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> Deleting FTE RECORDS"); 
-															editFTE_deleteExisiting();
-														} catch (Throwable e) {
-															// TODO Auto-generated catch block
-															e.printStackTrace();
-														}
-							                		
-							                		populate_projectDetails(requestIdStr, fteDateStr, dataList);
-													}
-												
-												invalidataHandler();if (!error.isEmpty()) {
-													System.out.println("[ERROR]:"+error);
-													}
+//							                	alertHandler();	if (!error.isEmpty()) {
+//													try {
+//							                           	System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> Deleting FTE RECORDS"); 
+//															editFTE_deleteExisiting();
+//														} catch (Throwable e) {
+//															// TODO Auto-generated catch block
+//															e.printStackTrace();
+//														}
+//							                		
+//							                		populate_projectDetails(requestIdStr, fteDateStr, dataList);
+//													}
+//												
+//												invalidataHandler();if (!error.isEmpty()) {
+//													System.out.println("[ERROR]:"+error);
+//													}
 						
 							                	
 							                	  //STATUS: READY FOR APPROVAL (With Data issue encountered)
