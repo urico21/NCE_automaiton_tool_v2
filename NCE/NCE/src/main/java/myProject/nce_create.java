@@ -652,24 +652,21 @@ public class nce_create {
 			            
 
 						if (ctr==26){
-							if(dataList.get(ctr+12).toLowerCase().contains("no")) {			            	
-				            	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
-				            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-				            	wait.until(ExpectedConditions.elementToBeClickable(elem));
-			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
-								 element.click();
-								 System.out.println(element.isSelected());
-			            	}else 
-			            	{
-								By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y");
-				            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-				            	wait.until(ExpectedConditions.elementToBeClickable(elem));
+							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
-								 element.click();
+			            		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+			            		element.click();
 								 System.out.println(element.isSelected());
 			            	}
+			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
+			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
+			            		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+								 element.click();
+								 System.out.println(element.isSelected()); 
+			            	} 
+							
 						}
-						
+								
 						else if (ctr==31) {
 			            	System.out.println("Client Interview");
 							Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));

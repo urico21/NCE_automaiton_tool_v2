@@ -669,11 +669,13 @@ public class nce_prospective {
 						if (ctr==26){
 							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
+			            		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 			            		element.click();
 								 System.out.println(element.isSelected());
 			            	}
 			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
+			            		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 								 element.click();
 								 System.out.println(element.isSelected()); 
 			            	} 
