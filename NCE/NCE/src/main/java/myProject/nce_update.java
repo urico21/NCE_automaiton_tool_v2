@@ -119,7 +119,7 @@ public class nce_update {
 				                		statusElemWait();currentStatus = statusWait();
 
 						                	dataList.clear();
-						                	for (int count=1; count <= 44;count++) {
+						                	for (int count=1; count <= 43;count++) {
 						                		dataList.add(rs.getString(count));
 						                	}
 						                	statusElemWait();
@@ -473,7 +473,7 @@ public class nce_update {
 						for (int ctr = 1; ctr <= 33	; ctr++) {
 							 String ctrStr=Integer.toString(ctr);
 							
-						if (!dataList.get(ctr+11).isEmpty()) {
+						if (!dataList.get(ctr+10).isEmpty()) {
 							 try (InputStream input = new FileInputStream("src/main/resources/properties/elements.properties")) {
 						            Properties prop = new Properties();
 						            prop.load(input);
@@ -485,63 +485,63 @@ public class nce_update {
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.COUNTRY")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+11));
+										DropDown.selectByVisibleText(dataList.get(ctr+10));
 									} else if(ctr==11) {
 						            	System.out.println("Reason Position Needed");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+11));
+										DropDown.selectByVisibleText(dataList.get(ctr+10));
 									} else if(ctr==10) {
 						            	System.out.println("Bill Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_BILL_TYPE")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+11));
+										DropDown.selectByVisibleText(dataList.get(ctr+10));
 									} else if(ctr==9) {
 						            	System.out.println("Resource Type");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_RESOURCE_TYPE")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+11));
+										DropDown.selectByVisibleText(dataList.get(ctr+10));
 										
 									} else if(ctr==21) {
 						            	System.out.println("Language Aptitude");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.SPOKEN_LANG_APTITUDE")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+11));	
+										DropDown.selectByVisibleText(dataList.get(ctr+10));	
 									} else if(ctr==23) {
 						            	System.out.println("Primary Skill Aptitude");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.PRIMARY_SKILL_APTITUDE")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+11));
+										DropDown.selectByVisibleText(dataList.get(ctr+10));
 										
 									} else if(ctr==25) {
 						            	System.out.println("Secondary Skill Aptitude");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.SECONDARY_SKILL_APTITUDE")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+11));	
+										DropDown.selectByVisibleText(dataList.get(ctr+10));	
 										
 									} else if(ctr==27) {
 						            	System.out.println("Position Work Location");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_LOC_ALIGN_TO_WPG")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+11));
+										DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
 									} else if(ctr==32) {
 						            	System.out.println("Client Interview");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
 
 										DropDown.selectByIndex(0);
-										DropDown.selectByVisibleText(dataList.get(ctr+11));
+										DropDown.selectByVisibleText(dataList.get(ctr+10));
 										
 									} else if(ctr==26) {
 						            	System.out.println("Location Conts Constrained");
-						            	if(dataList.get(ctr+11).toLowerCase().contains("yes")) {
+						            	if(dataList.get(ctr+10).toLowerCase().contains("yes")) {
 						            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
 						            		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 											 element.click();
@@ -550,7 +550,7 @@ public class nce_update {
 												 element.click();
 											 }
 						            	}
-						            	if(dataList.get(ctr+11).toLowerCase().contains("no")) {
+						            	if(dataList.get(ctr+10).toLowerCase().contains("no")) {
 						            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
 											 element.click();
 											 System.out.println(element.isSelected());
@@ -574,13 +574,13 @@ public class nce_update {
 			
 											Thread.sleep(200);
 											field.clear();
-											field.sendKeys(dataList.get(ctr+11).trim());
+											field.sendKeys(dataList.get(ctr+10).trim());
 											field.clear();
-											field.sendKeys(dataList.get(ctr+11).trim());
+											field.sendKeys(dataList.get(ctr+10).trim());
 											field.sendKeys(Keys.TAB);
 										} else {
 											Thread.sleep(200);
-											field.sendKeys(dataList.get(ctr+11).trim());
+											field.sendKeys(dataList.get(ctr+10).trim());
 											field.sendKeys(Keys.TAB);
 										}
 										
@@ -704,68 +704,68 @@ public class nce_update {
 					for (int ctr = 1; ctr <= 29	; ctr++) {
 						 String ctrStr=Integer.toString(ctr);
 						
-					if (!dataList.get(ctr+11).isEmpty()) {
+					if (!dataList.get(ctr+10).isEmpty()) {
 						 try (InputStream input = new FileInputStream("src/main/resources/properties/elements.properties")) {
 					            Properties prop = new Properties();
 					            prop.load(input);
 					            
-					            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+11));
+					            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+10));
 								
 					            if (ctr==2) {
 					            	System.out.println("Country");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.COUNTRY")));
 
 									DropDown.selectByIndex(0);
-									DropDown.selectByVisibleText(dataList.get(ctr+11));
+									DropDown.selectByVisibleText(dataList.get(ctr+10));
 								} else if(ctr==12) {
 					            	System.out.println("Reason Position Needed");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED")));
 
 									DropDown.selectByIndex(0);
-									DropDown.selectByVisibleText(dataList.get(ctr+11));
+									DropDown.selectByVisibleText(dataList.get(ctr+10));
 								} else if(ctr==11) {
 					            	System.out.println("Bill Type");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_BILL_TYPE")));
 
 									DropDown.selectByIndex(0);
-									DropDown.selectByVisibleText(dataList.get(ctr+11));
+									DropDown.selectByVisibleText(dataList.get(ctr+10));
 								} else if(ctr==10) {
 					            	System.out.println("Resource Type");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_RESOURCE_TYPE")));
 
 									DropDown.selectByIndex(0);
-									DropDown.selectByVisibleText(dataList.get(ctr+11));
+									DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
 								} else if(ctr==22) {
 					            	System.out.println("Language Aptitude");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.SPOKEN_LANG_APTITUDE")));
 
 									DropDown.selectByIndex(0);
-									DropDown.selectByVisibleText(dataList.get(ctr+11));	
+									DropDown.selectByVisibleText(dataList.get(ctr+10));	
 								} else if(ctr==24) {
 					            	System.out.println("Primary Skill Aptitude");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.PRIMARY_SKILL_APTITUDE")));
 
 									DropDown.selectByIndex(0);
-									DropDown.selectByVisibleText(dataList.get(ctr+11));
+									DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
 								} else if(ctr==26) {
 					            	System.out.println("Secondary Skill Aptitude");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.SECONDARY_SKILL_APTITUDE")));
 
 									DropDown.selectByIndex(0);
-									DropDown.selectByVisibleText(dataList.get(ctr+11));	
+									DropDown.selectByVisibleText(dataList.get(ctr+10));	
 									
 								} else if(ctr==28) {
 					            	System.out.println("Position Work Location");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_LOC_ALIGN_TO_WPG")));
 
 									DropDown.selectByIndex(0);
-									DropDown.selectByVisibleText(dataList.get(ctr+11));
+									DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
 								} else if(ctr==27) {
 					            	System.out.println("Location Conts Constrained");
-					            	if(dataList.get(ctr+11).toLowerCase().contains("yes")) {
+					            	if(dataList.get(ctr+10).toLowerCase().contains("yes")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
 										 element.click();
 										 System.out.println(element.isSelected());
@@ -773,7 +773,7 @@ public class nce_update {
 											 element.click();
 										 }
 					            	}
-					            	if(dataList.get(ctr+11).toLowerCase().contains("no")) {
+					            	if(dataList.get(ctr+10).toLowerCase().contains("no")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
 										 element.click();
 										 System.out.println(element.isSelected());
@@ -784,7 +784,7 @@ public class nce_update {
 					            	
 								} else if(ctr==32) {
 					            	System.out.println("Location Conts Constrained");
-					            	if(dataList.get(ctr+11).toLowerCase().contains("yes")) {
+					            	if(dataList.get(ctr+10).toLowerCase().contains("yes")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_Y"));
 										 element.click();
 										 System.out.println(element.isSelected());
@@ -792,7 +792,7 @@ public class nce_update {
 											 element.click();
 										 }
 					            	}
-					            	if(dataList.get(ctr+11).toLowerCase().contains("no")) {
+					            	if(dataList.get(ctr+10).toLowerCase().contains("no")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_N"));
 										 element.click();
 										 System.out.println(element.isSelected());
@@ -803,7 +803,7 @@ public class nce_update {
 					            	
 								} else if(ctr==33) {
 					            	System.out.println("Location Conts Constrained");
-					            	if(dataList.get(ctr+11).toLowerCase().contains("yes")) {
+					            	if(dataList.get(ctr+10).toLowerCase().contains("yes")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));
 										 element.click();
 										 System.out.println(element.isSelected());
@@ -811,7 +811,7 @@ public class nce_update {
 											 element.click();
 										 }
 					            	}
-					            	if(dataList.get(ctr+11).toLowerCase().contains("no")) {
+					            	if(dataList.get(ctr+10).toLowerCase().contains("no")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N"));
 										 element.click();
 										 System.out.println(element.isSelected());
@@ -833,13 +833,13 @@ public class nce_update {
 									if(ctr==17 || ctr==18) {
 										Thread.sleep(200);
 										field.clear();
-										field.sendKeys(dataList.get(ctr+11).trim());
+										field.sendKeys(dataList.get(ctr+10).trim());
 										field.clear();
-										field.sendKeys(dataList.get(ctr+11).trim());
+										field.sendKeys(dataList.get(ctr+10).trim());
 										field.sendKeys(Keys.TAB);
 									} else {
 										Thread.sleep(200);
-										field.sendKeys(dataList.get(ctr+11).trim());
+										field.sendKeys(dataList.get(ctr+10).trim());
 										field.sendKeys(Keys.TAB);
 									}
 									
