@@ -132,11 +132,11 @@ public class nce_create {
 				                		//PROCEED TO CLICK REQUEST ID AND APPROVALS
 				                		if(error.isEmpty()) {
 						                	reqID().click();
-						                	Thread.sleep(500);
-						                    locCons(dataList).click();
 						                	completePLM().click();
 						    					ongoingUpate();
 						    					update.executeUpdate();	
+							                	Thread.sleep(500);
+							                    locCons(dataList).click();
 						                	releaseForAppvl().click();
 						                		ongoingUpate();
 						                		update.executeUpdate();
@@ -522,7 +522,7 @@ public class nce_create {
     public static WebElement locCons(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     		try {
-    		if(dataList.get(39).toLowerCase().contains("no")) {
+    		if(dataList.get(39).contains("No")) {
             	//Early Staffing Indicator to No
             	WebDriverWait wait = new WebDriverWait(driver, 10);
             	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
@@ -652,21 +652,32 @@ public class nce_create {
 			            
 
 						if (ctr==26){
-							if(dataList.get(ctr+12).toLowerCase().contains("yes")) {
-			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
-			            		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-			            		element.click();
-								 System.out.println(element.isSelected());
-			            	}
-			            	if(dataList.get(ctr+12).toLowerCase().contains("no")) {
+							if(dataList.get(ctr+12).contains("no")) {			            	
+				            	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
+				            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+				            	wait.until(ExpectedConditions.elementToBeClickable(elem));
 			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
-			            		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 								 element.click();
-								 System.out.println(element.isSelected()); 
-			            	} 
-							
+								 System.out.println(element.isSelected());
+								 if(!element.isSelected()){
+									 element.click();
+									 System.out.println(element.isSelected());
+								 }
+			            	}else 
+			            	{
+								By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y");
+				            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+				            	wait.until(ExpectedConditions.elementToBeClickable(elem));
+			            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
+								 element.click();
+								 System.out.println(element.isSelected());
+								 if(!element.isSelected()){
+									 element.click();
+									 System.out.println(element.isSelected());
+								 }
+			            	}
 						}
-								
+						
 						else if (ctr==31) {
 			            	System.out.println("Client Interview");
 							Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
