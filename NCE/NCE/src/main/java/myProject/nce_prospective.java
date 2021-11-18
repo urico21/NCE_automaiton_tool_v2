@@ -124,6 +124,8 @@ public class nce_prospective {
 						                	System.out.println();
 										System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [SKIPPED]");
 				                	}else {
+				    					Thread.sleep(500);
+					                    locCons(dataList).click();
 				                		submit().click();
 				                		error();
 
@@ -138,8 +140,6 @@ public class nce_prospective {
 						       					projUnsold().click();
 						       					Thread.sleep(100);
 						    					indicatorES(dataList).click();	
-						    					Thread.sleep(500);
-							                    locCons(dataList).click();
 						                	releaseForAppvl().click();
 						                		ongoingUpate();
 						                		update.executeUpdate();
@@ -991,7 +991,7 @@ public class nce_prospective {
             	}
             	}catch (Exception e) {
             	driver.navigate().refresh();
-            	System.out.println("[WAITING] Ready for Approval");
+            	System.out.println("[WAITING] SUBMIT PLM");
             	}
             	}
             	return null;
