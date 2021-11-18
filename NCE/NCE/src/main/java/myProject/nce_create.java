@@ -124,6 +124,8 @@ public class nce_create {
 						                	System.out.println();
 										System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [SKIPPED]");
 				                	}else {
+					                	Thread.sleep(500);
+					                    locCons(dataList).click();
 				                		submit().click();
 				                		error();
 
@@ -135,8 +137,6 @@ public class nce_create {
 						                	completePLM().click();
 						    					ongoingUpate();
 						    					update.executeUpdate();	
-							                	Thread.sleep(500);
-							                    locCons(dataList).click();
 						                	releaseForAppvl().click();
 						                		ongoingUpate();
 						                		update.executeUpdate();
@@ -544,7 +544,7 @@ public class nce_create {
             	}
             	}catch (Exception e) {
             	driver.navigate().refresh();
-            	System.out.println("[WAITING] Ready for Approval");
+            	System.out.println("[WAITING] SUBMIT PLM");
             	}
             	}
             	return null;
