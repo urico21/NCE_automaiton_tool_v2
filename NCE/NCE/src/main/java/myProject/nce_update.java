@@ -119,7 +119,7 @@ public class nce_update {
 				                		statusElemWait();currentStatus = statusWait();
 
 						                	dataList.clear();
-						                	for (int count=1; count <= 43;count++) {
+						                	for (int count=1; count <= 44;count++) {
 						                		dataList.add(rs.getString(count));
 						                	}
 						                	statusElemWait();
@@ -470,7 +470,7 @@ public class nce_update {
 						 }
 					   }
 						//Populate create fields
-						for (int ctr = 1; ctr <= 29	; ctr++) {
+						for (int ctr = 1; ctr <= 33	; ctr++) {
 							 String ctrStr=Integer.toString(ctr);
 							
 						if (!dataList.get(ctr+10).isEmpty()) {
@@ -478,7 +478,7 @@ public class nce_update {
 						            Properties prop = new Properties();
 						            prop.load(input);
 						            
-						            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+10));
+						            System.out.println(ctr+"|"+prop.getProperty(ctrStr)+"|"+dataList.get(ctr+11));
 									
 						            if (ctr==2) {
 						            	System.out.println("Country");
