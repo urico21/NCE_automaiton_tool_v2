@@ -522,7 +522,7 @@ public class nce_create {
     public static WebElement locCons(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     		try {
-    		if(dataList.get(39).contains("No")) {
+    		if(dataList.get(39).toLowerCase().contains("no")) {
             	//Early Staffing Indicator to No
             	WebDriverWait wait = new WebDriverWait(driver, 10);
             	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
