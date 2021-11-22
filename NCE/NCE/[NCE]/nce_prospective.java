@@ -124,8 +124,6 @@ public class nce_prospective {
 						                	System.out.println();
 										System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [SKIPPED]");
 				                	}else {
-				    					Thread.sleep(500);
-					                    locCons(dataList).click();
 				                		submit().click();
 				                		error();
 
@@ -137,10 +135,11 @@ public class nce_prospective {
 						                	completePLM().click();
 						    					ongoingUpate();
 						    					update.executeUpdate();	
-						    					Thread.sleep(100);
 						       					projUnsold().click();
 						       					Thread.sleep(100);
 						    					indicatorES(dataList).click();	
+						    					Thread.sleep(500);
+							                    locCons(dataList).click();
 						                	releaseForAppvl().click();
 						                		ongoingUpate();
 						                		update.executeUpdate();
@@ -970,7 +969,7 @@ public class nce_prospective {
     public static WebElement locCons(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     		try {
-    		if(dataList.get(39).contains("No")) {
+    		if(dataList.get(38).contains("No")) {
             	//Early Staffing Indicator to No
             	WebDriverWait wait = new WebDriverWait(driver, 10);
             	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
@@ -992,9 +991,7 @@ public class nce_prospective {
             	}
             	}catch (Exception e) {
             	driver.navigate().refresh();
-            	System.out.println("[WAITING] SUBMIT PLM"
-            			+ ""
-            			+ "");
+            	System.out.println("[WAITING] Ready for Approval");
             	}
             	}
             	return null;

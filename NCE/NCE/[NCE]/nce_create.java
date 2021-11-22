@@ -124,8 +124,6 @@ public class nce_create {
 						                	System.out.println();
 										System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [SKIPPED]");
 				                	}else {
-					                	Thread.sleep(500);
-					                    locCons(dataList).click();
 				                		submit().click();
 				                		error();
 
@@ -137,6 +135,8 @@ public class nce_create {
 						                	completePLM().click();
 						    					ongoingUpate();
 						    					update.executeUpdate();	
+							                	Thread.sleep(500);
+							                    locCons(dataList).click();
 						                	releaseForAppvl().click();
 						                		ongoingUpate();
 						                		update.executeUpdate();
@@ -522,7 +522,7 @@ public class nce_create {
     public static WebElement locCons(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     		try {
-    		if(dataList.get(39).toLowerCase().contains("no")) {
+    		if(dataList.get(38).contains("No")) {
             	//Early Staffing Indicator to No
             	WebDriverWait wait = new WebDriverWait(driver, 10);
             	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
@@ -544,7 +544,7 @@ public class nce_create {
             	}
             	}catch (Exception e) {
             	driver.navigate().refresh();
-            	System.out.println("[WAITING] SUBMIT PLM");
+            	System.out.println("[WAITING] Ready for Approval");
             	}
             	}
             	return null;

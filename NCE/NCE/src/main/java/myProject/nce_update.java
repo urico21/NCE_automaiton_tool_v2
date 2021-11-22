@@ -119,7 +119,7 @@ public class nce_update {
 				                		statusElemWait();currentStatus = statusWait();
 
 						                	dataList.clear();
-						                	for (int count=1; count <= 43;count++) {
+						                	for (int count=1; count <= 44;count++) {
 						                		dataList.add(rs.getString(count));
 						                	}
 						                	statusElemWait();
@@ -532,7 +532,7 @@ public class nce_update {
 										DropDown.selectByIndex(0);
 										DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
-									} else if(ctr==33) {
+									} else if(ctr==32) {
 						            	System.out.println("Client Interview");
 										Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
 
@@ -717,39 +717,39 @@ public class nce_update {
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));
-								} else if(ctr==11) {
+								} else if(ctr==12) {
 					            	System.out.println("Reason Position Needed");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_REASON_POSITION_NEEDED")));
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));
-								} else if(ctr==10) {
+								} else if(ctr==11) {
 					            	System.out.println("Bill Type");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_BILL_TYPE")));
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));
-								} else if(ctr==9) {
+								} else if(ctr==10) {
 					            	System.out.println("Resource Type");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_RESOURCE_TYPE")));
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
-								} else if(ctr==21) {
+								} else if(ctr==22) {
 					            	System.out.println("Language Aptitude");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.SPOKEN_LANG_APTITUDE")));
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));	
-								} else if(ctr==23) {
+								} else if(ctr==24) {
 					            	System.out.println("Primary Skill Aptitude");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.PRIMARY_SKILL_APTITUDE")));
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
-								} else if(ctr==25) {
+								} else if(ctr==26) {
 					            	System.out.println("Secondary Skill Aptitude");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.SECONDARY_SKILL_APTITUDE")));
 
@@ -763,14 +763,7 @@ public class nce_update {
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
-								} else if(ctr==33) {
-					            	System.out.println("Client Interview");
-									Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
-
-									DropDown.selectByIndex(0);
-									DropDown.selectByVisibleText(dataList.get(ctr+10));
-									
-								} else if(ctr==26) {
+								} else if(ctr==27) {
 					            	System.out.println("Location Conts Constrained");
 					            	if(dataList.get(ctr+10).toLowerCase().contains("yes")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
@@ -789,8 +782,8 @@ public class nce_update {
 										 }
 					            	}
 					            	
-								} else if(ctr==31) {
-					            	System.out.println("Project Sold");
+								} else if(ctr==32) {
+					            	System.out.println("Location Conts Constrained");
 					            	if(dataList.get(ctr+10).toLowerCase().contains("yes")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_PROJECT_SOLD_Y"));
 										 element.click();
@@ -808,8 +801,8 @@ public class nce_update {
 										 }
 					            	}
 					            	
-								} else if(ctr==32) {
-					            	System.out.println("Early Staffing");
+								} else if(ctr==33) {
+					            	System.out.println("Location Conts Constrained");
 					            	if(dataList.get(ctr+10).toLowerCase().contains("yes")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));
 										 element.click();
@@ -826,7 +819,6 @@ public class nce_update {
 											 element.click();
 										 }
 					            	}
-					            	
 								} else {
 									By fieldPath = By.id(prop.getProperty(ctrStr));
 									wait.until(ExpectedConditions.presenceOfElementLocated(fieldPath));
