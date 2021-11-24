@@ -124,11 +124,16 @@ public class nce_prospective {
 						                	System.out.println();
 										System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [SKIPPED]");
 				                	}else {
-				    					Thread.sleep(500);
-					                    locCons(dataList).click();
 				                		submit().click();
 				                		error();
-
+				                		
+				                		if(!error.isEmpty()) {
+				                			Thread.sleep(300);
+				                			locCons(dataList).click();
+				                			error="";
+				                			submit().click();
+				                			error();
+				                			}
 										alertHandler();
 				                		
 				                		//PROCEED TO CLICK REQUEST ID AND APPROVALS

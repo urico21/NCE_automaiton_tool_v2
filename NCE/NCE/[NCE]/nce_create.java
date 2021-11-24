@@ -124,11 +124,16 @@ public class nce_create {
 						                	System.out.println();
 										System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [SKIPPED]");
 				                	}else {
-					                	Thread.sleep(500);
-					                    locCons(dataList).click();
-					                    
 				                		submit().click();
 				                		error();
+				                		
+				                		if(!error.isEmpty()) {
+				                			Thread.sleep(300);
+				                			locCons(dataList).click();
+				                			error="";
+				                			submit().click();
+				                			error();
+				                			}
 
 										alertHandler();
 				                		
@@ -793,7 +798,7 @@ public class nce_create {
             WebElement username = driver.findElement(By.name("username"));
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
-	    	username.sendKeys("ernest.nebre");
+        	username.sendKeys("ernest.nebre");
 	    	password.sendKeys("!15Stereorama");
 	    	loginBtn.click();
 			break;
