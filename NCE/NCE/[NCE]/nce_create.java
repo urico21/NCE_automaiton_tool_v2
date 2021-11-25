@@ -135,7 +135,7 @@ public class nce_create {
 				                			error();
 				                			}
 
-										alertHandler();
+//										alertHandler();
 				                		
 				                		//PROCEED TO CLICK REQUEST ID AND APPROVALS
 				                		if(error.isEmpty()) {

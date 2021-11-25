@@ -134,7 +134,7 @@ public class nce_prospective {
 				                			submit().click();
 				                			error();
 				                			}
-										alertHandler();
+//										alertHandler();
 				                		
 				                		//PROCEED TO CLICK REQUEST ID AND APPROVALS
 				                		if(error.isEmpty()) {
@@ -546,7 +546,7 @@ public class nce_prospective {
     public static WebElement indicatorES(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     		try {
-    		if(dataList.get(45).toLowerCase().contains("no")) {
+    		if(dataList.get(44).toLowerCase().contains("no")) {
             	//Early Staffing Indicator to No
             	WebDriverWait wait = new WebDriverWait(driver, 10);
             	By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N");
@@ -706,7 +706,7 @@ public class nce_prospective {
 							Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
 
 							DropDown.selectByIndex(0);
-							DropDown.selectByVisibleText(dataList.get(ctr+12));
+							DropDown.selectByVisibleText(dataList.get(ctr+14));
 						}
 						
 												
@@ -812,8 +812,9 @@ public class nce_prospective {
             WebElement username = driver.findElement(By.name("username"));
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
-	    	username.sendKeys("ernest.nebre");
-	    	password.sendKeys("!15Stereorama");
+        	username.sendKeys("franz.valois@dxc.com");
+	    	password.sendKeys("Gingerbread0928@");
+
 	    	loginBtn.click();
 			break;
 		} catch (Exception e) {
@@ -975,8 +976,7 @@ public class nce_prospective {
     public static WebElement locCons(List<String> dataArryVal) {
     	for (int x= 0; x< 20; x++) {
     		try {
-    		if(dataList.get(38).contains("No")) {
-            	//Early Staffing Indicator to No
+    		if(dataList.get(38).toLowerCase().contains("no")) {            	
             	WebDriverWait wait = new WebDriverWait(driver, 10);
             	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
             	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
@@ -986,7 +986,6 @@ public class nce_prospective {
             	return element;
             	}
         	else {
-            	//Early Staffing Indicator to Yes
             	WebDriverWait wait = new WebDriverWait(driver, 10);
             	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y");
             	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
