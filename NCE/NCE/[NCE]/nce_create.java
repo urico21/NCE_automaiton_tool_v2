@@ -124,18 +124,17 @@ public class nce_create {
 						                	System.out.println();
 										System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [SKIPPED]");
 				                	}else {
-				                		submit().click();
-				                		error();
-				                		
-				                		if(!error.isEmpty()) {
+				                		//click submit
+				                		submit();
+				                						                		
+				                			//catch location constraints issue
 				                			Thread.sleep(300);
-				                			locCons(dataList).click();
+				                			locCons(dataList);
 				                			error="";
-				                			submit().click();
+				                			submit();
 				                			error();
-				                			}
-
-//										alertHandler();
+				                			
+										alertHandler();
 				                		
 				                		//PROCEED TO CLICK REQUEST ID AND APPROVALS
 				                		if(error.isEmpty()) {
@@ -303,6 +302,7 @@ public class nce_create {
 	    	            }
 	    	        } catch (Exception e) {
 	    	        	System.out.println("You're here");
+	    	        	e.printStackTrace();
 	    	        	ongoingUpate();
 	                	update.executeUpdate();
 	                	ongoingUpateWithReqId();
@@ -525,35 +525,36 @@ public class nce_create {
     	return null;
     }
     
-    public static WebElement locCons(List<String> dataArryVal) {
-    	for (int x= 0; x< 20; x++) {
-    		try {
+    public static  void locCons(List<String> dataArryVal) {
+    	   try {
     		if(dataList.get(38).toLowerCase().contains("no")) {
             	//Early Staffing Indicator to No
-            	WebDriverWait wait = new WebDriverWait(driver, 10);
-            	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N");
-            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-            	wait.until(ExpectedConditions.elementToBeClickable(elem));
             	WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
                	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Location Constrained >> No]");
-            	return element;
+               	element.click();
+               	//Clicking Client interview as well
+               	System.out.println("Client Interview");
+				Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
+				DropDown.selectByIndex(0);
+				DropDown.selectByVisibleText(dataList.get(43));
+				
             	}
         	else {
             	//Early Staffing Indicator to Yes
-            	WebDriverWait wait = new WebDriverWait(driver, 10);
-            	By elemPath = By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y");
-            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
-            	wait.until(ExpectedConditions.elementToBeClickable(elem));
             	WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
             	System.out.println("RECORD ["+id+"] - PROJECT ID ["+projIDStr+"] >> [Location Constrained >> Yes]");
-            	return element;
+            	element.click();
+            	//Clicking Client interview as well
+               	System.out.println("Client Interview");
+				Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
+				DropDown.selectByIndex(0);
+				DropDown.selectByVisibleText(dataList.get(43));
+            	            	
             	}
-            	}catch (Exception e) {
-            	driver.navigate().refresh();
-            	System.out.println("[WAITING] Ready for Approval");
-            	}
-            	}
-            	return null;
+    	   }catch(Exception e) {
+    		   System.out.println("Contractually constraint button not found/Client interview drop down not found");
+    	   }
+            	
             	}
     
    
@@ -860,20 +861,20 @@ public class nce_create {
 		return null;
 	}
 
-	public static WebElement submit() {
-		for (int x = 0; x < 20; x++) {
+	public static void submit() {
+		for (int x = 0; x < 2; x++) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebDriverWait wait = new WebDriverWait(driver, 10);
 			By elemPath = By.id("submit");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
-			return elem;
+			elem.click();
 		} catch (Exception e) {
-			driver.navigate().refresh();
-			System.out.println("[WAITING] SUBMIT BUTTON");
+			//driver.navigate().refresh();
+			System.out.println("[WARNING] SUBMIT BUTTON not clickable");
 		}
 	  }
-		return null;
+		
 	}
 	
 	private static void ongoingUpate() {
