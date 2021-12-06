@@ -875,20 +875,19 @@ public class nce_prospective {
 		return null;
 	}
 
-	public static WebElement submit() {
-		for (int x = 0; x < 20; x++) {
+	public static void submit() {
+		for (int x = 0; x < 2; x++) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 5);
+			WebDriverWait wait = new WebDriverWait(driver, 10);
 			By elemPath = By.id("submit");
 			WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 			wait.until(ExpectedConditions.elementToBeClickable(elem));
-			return elem;
+			elem.click();
 		} catch (Exception e) {
-			driver.navigate().refresh();
+//			driver.navigate().refresh();
 			System.out.println("[WAITING] SUBMIT BUTTON");
 		}
 	  }
-		return null;
 	}
 	
 	private static void ongoingUpate() {

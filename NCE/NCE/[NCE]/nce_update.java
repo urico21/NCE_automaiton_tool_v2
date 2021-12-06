@@ -736,34 +736,34 @@ public class nce_update {
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
-								} else if(ctr==22) {
+								} else if(ctr==21) {
 					            	System.out.println("Language Aptitude");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.SPOKEN_LANG_APTITUDE")));
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));	
-								} else if(ctr==24) {
+								} else if(ctr==23) {
 					            	System.out.println("Primary Skill Aptitude");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.PRIMARY_SKILL_APTITUDE")));
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
-								} else if(ctr==26) {
+								} else if(ctr==25) {
 					            	System.out.println("Secondary Skill Aptitude");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.SECONDARY_SKILL_APTITUDE")));
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));	
 									
-								} else if(ctr==28) {
+								} else if(ctr==27) {
 					            	System.out.println("Position Work Location");
 									Select DropDown = new Select(driver.findElement(By.id("REQD.P.WFM_LOC_ALIGN_TO_WPG")));
 
 									DropDown.selectByIndex(0);
 									DropDown.selectByVisibleText(dataList.get(ctr+10));
 									
-								} else if(ctr==27) {
+								} else if(ctr==26) {
 					            	System.out.println("Location Conts Constrained");
 					            	if(dataList.get(ctr+10).toLowerCase().contains("yes")) {
 					            		WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
@@ -999,8 +999,8 @@ public class nce_update {
             WebElement username = driver.findElement(By.name("username"));
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
-        	username.sendKeys("franz.valois@dxc.com");
-	    	password.sendKeys("Gingerbread0928@");
+        	username.sendKeys("ernest.nebre");
+	    	password.sendKeys("!15Stereorama");
 
 	    	loginBtn.click();
 			break;
