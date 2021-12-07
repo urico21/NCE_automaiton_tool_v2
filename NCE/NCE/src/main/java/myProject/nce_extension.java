@@ -190,7 +190,9 @@ public class nce_extension {
 							                	//Fix Skills Issue
 							                	if(currentStatus.trim().contains("In Planning")) {
 							                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
+							                		Thread.sleep(300);
 							                		completePLM().click();
+							                		System.out.println("COMPLETE PLM CLICKED");
 							                	}
 							                	
 							                	statusElemWait();currentStatus = statusWait();
@@ -390,7 +392,7 @@ public class nce_extension {
 						reDefineCheck();
 						if (reDefineCheck()) {
 							statusElemWait();currentStatus = statusWait();
-							reDefine().click();	
+							reDefine();	
 							statusElemWait();currentStatus = statusWait();
 							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REDEFINED");
 						}else {
@@ -1247,21 +1249,20 @@ public class nce_extension {
 			}
 		 }
 		
-		public static WebElement reDefine() {
-			for (int x = 0; x < 20; x++) {
+		public static void reDefine() {
+			for (int x = 0; x < 2; x++) {
 			try {
 				WebDriverWait wait = new WebDriverWait(driver, 10);
 				By elemPath = By.xpath("//div[contains(text(), 'ReDefine Demand')]");
 				WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
 				wait.until(ExpectedConditions.elementToBeClickable(elem));
 				WebElement element = driver.findElement(By.xpath("//div[contains(text(), 'ReDefine Demand')]"));
-				return element;
+				element.click();
 			} catch (Exception e) {
-				driver.navigate().refresh();
+//				driver.navigate().refresh();
 				System.out.println("[WAITING] REDEFINE BUTTON");
 			}
 			}
-			return null;
 		}
 		
 		public static WebElement reworkPLM() {
