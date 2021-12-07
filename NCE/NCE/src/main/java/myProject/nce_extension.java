@@ -391,9 +391,10 @@ public class nce_extension {
 					if (currentStatus.trim().contains("Position Created in SP")) {
 						reDefineCheck();
 						if (reDefineCheck()) {
-							statusElemWait();currentStatus = statusWait();
-							reDefine();	
-							statusElemWait();currentStatus = statusWait();
+							while(!currentStatus.trim().contains("In Planning")) {
+								Thread.sleep(1000);								
+								reDefine();	
+							}
 							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> REDEFINED");
 						}else {
 							System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> ISSUE ON CFREDENTIAL");
@@ -693,8 +694,8 @@ public class nce_extension {
 			WebElement username = driver.findElement(By.name("username"));
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
-            username.sendKeys("ernest.nebre");
-	    	password.sendKeys("!15Stereorama");
+            username.sendKeys("franz.valois");
+	    	password.sendKeys("Gingerbread0928!");
 	    	loginBtn.click();
 			break;
 		} catch (Exception e) {
@@ -1260,6 +1261,9 @@ public class nce_extension {
 				element.click();
 			} catch (Exception e) {
 //				driver.navigate().refresh();
+				if(currentStatus.trim().contains("In Planning")) {
+					break;
+				}
 				System.out.println("[WAITING] REDEFINE BUTTON");
 			}
 			}
