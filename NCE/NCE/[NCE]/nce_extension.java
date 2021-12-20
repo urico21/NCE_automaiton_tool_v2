@@ -693,8 +693,8 @@ public class nce_extension {
 			WebElement username = driver.findElement(By.name("username"));
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
-            username.sendKeys("ernest.nebre");
-	    	password.sendKeys("!15Stereorama");
+            username.sendKeys("franz.valois");
+	    	password.sendKeys("Gingerbread0929@");
 	    	loginBtn.click();
 			break;
 		} catch (Exception e) {
@@ -1260,6 +1260,9 @@ public class nce_extension {
 				element.click();
 			} catch (Exception e) {
 //				driver.navigate().refresh();
+				if(currentStatus.trim().contains("In Planning")) {
+					break;
+				}
 				System.out.println("[WAITING] REDEFINE BUTTON");
 			}
 			}
