@@ -693,8 +693,8 @@ public class nce_extension {
 			WebElement username = driver.findElement(By.name("username"));
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
-            username.sendKeys("franz.valois");
-	    	password.sendKeys("Gingerbread0929@");
+	    	username.sendKeys("ernest.nebre");
+	    	password.sendKeys("!17Stereorama");
 	    	loginBtn.click();
 			break;
 		} catch (Exception e) {
