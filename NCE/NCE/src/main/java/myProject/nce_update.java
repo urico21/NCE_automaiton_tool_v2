@@ -998,8 +998,8 @@ public class nce_update {
             WebElement username = driver.findElement(By.name("username"));
             WebElement password = driver.findElement(By.name("password"));
             WebElement loginBtn = driver.findElement(By.id("okta-signin-submit"));
-	    	username.sendKeys("ernest.nebre");
-	    	password.sendKeys("!17Stereorama");
+	    	username.sendKeys("franz.valois");
+	    	password.sendKeys("Gingerbread0929@");
 	    	loginBtn.click();
 			break;
 		} catch (Exception e) {
@@ -1546,7 +1546,7 @@ public class nce_update {
 			//Too many result rows were returned for SQL in Rule 90
 			for (int x = 0; x < 3; x++) {
 			try {
-				WebDriverWait wait = new WebDriverWait(driver, 1);
+				WebDriverWait wait = new WebDriverWait(driver, 3);
 				Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 				String alertmessage = alert.getText();
 				alert.accept();
@@ -1567,7 +1567,7 @@ public class nce_update {
 		public static void alertHandlermenu() {
 			for (int x = 0; x < 3; x++) {
 			try {
-				WebDriverWait wait = new WebDriverWait(driver, 1);
+				WebDriverWait wait = new WebDriverWait(driver, 3);
 				Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 				alert.accept();
 				break;
