@@ -187,16 +187,16 @@ public class nce_update {
 												  
 												    //Catch Error on first click
 								                	if(currentStatus.trim().contains("In Planning")) {
-								                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+								                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 							              						completePLM().click();
-							              					
+							              						indicatorES(dataList).click();
 								                	}
 								                	
 								                	//Amend Skills Issue
 								                	if(currentStatus.trim().contains("In Planning")) {
-								                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+								                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 							              						completePLM().click();
-							              					
+							              						indicatorES(dataList).click();
 								                	}
 								                	
 								                	//Ready for Approval
@@ -294,7 +294,7 @@ public class nce_update {
 								                	//PLM Approval
 												    statusElemWait();currentStatus = statusWait();
 								                	Thread.sleep(500);
-							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 							                		  if(currentStatus.trim().contains("PLM Approved")) {
 							                			  //CHECK IF CANCEL BUTTON I SHOWNED IN PLM APPROVED, REFRESH PAGE IF YES
 							                			  String HeaderTxt = driver.findElement(By.xpath("//*[@id=\"DB0_0\"]")).getText();
@@ -313,7 +313,7 @@ public class nce_update {
 							                		  //Staffing Approval
 							                		  statusElemWait();currentStatus = statusWait();
 							                		  Thread.sleep(500);
-							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+reqID+"] >> " + currentStatus);
+							                		  System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 							                		  if(currentStatus.trim().contains("Staffing Approved")) {
 									                			  moveToSp().click();
 							              					
@@ -337,10 +337,9 @@ public class nce_update {
 				                		error="[Error] Access Error";
 				                	}
 
-				                	  Thread.sleep(500);
 				                	  ongoingUpate();
 				                	  update.executeUpdate();	
-									  System.out.println("RECORD ["+id+"] - REQUEST ID  ["+reqID+"] >> SUCCESSFUL");
+									  System.out.println("RECORD ["+id+"] - REQUEST ID  ["+requestIdStr+"] >> SUCCESSFUL");
 									  
 				                	search_menu().click(); Thread.sleep(500);
 				                    request_submenu().click();Thread.sleep(500);									 	
@@ -1101,7 +1100,69 @@ public class nce_update {
 		}
 		}		
 	}
-	
+
+    public static  void locCons(List<String> dataArryVal) {
+  	   try {
+  		if(dataList.get(38).toLowerCase().contains("no")) {
+          	WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_N"));
+             	System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Location Constrained >> No]");
+             	element.click();
+             	//Clicking Client interview as well
+             	System.out.println("Client Interview");
+ 				Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
+ 				DropDown.selectByIndex(0);
+ 				DropDown.selectByVisibleText(dataList.get(44));
+ 				
+          	}
+      	else {
+          	WebElement element = driver.findElement(By.id("REQD.P.WFM_LOCTAION_CONTRACTUALLY_Y"));
+          	System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Location Constrained >> Yes]");
+          	element.click();
+          	//Clicking Client interview as well
+             	System.out.println("Client Interview");
+ 				Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
+ 				DropDown.selectByIndex(0);
+ 				DropDown.selectByVisibleText(dataList.get(44));
+          	            	
+          	}
+  	   }catch(Exception e) {
+  		   System.out.println("Contractually constraint button not found/Client interview drop down not found");
+  	   }
+          	
+          	}
+ 
+    public static WebElement indicatorES(List<String> dataArryVal) {
+    	for (int x= 0; x< 20; x++) {
+    		try {
+    		if(dataList.get(42).toLowerCase().contains("no")) {
+            	//Early Staffing Indicator to No
+            	WebDriverWait wait = new WebDriverWait(driver, 10);
+            	By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N");
+            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+            	wait.until(ExpectedConditions.elementToBeClickable(elem));
+            	WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_N"));
+            	System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Early Staffing >> No]");
+            	return element;
+            	}
+        	else {
+            	//Early Staffing Indicator to Yes
+            	WebDriverWait wait = new WebDriverWait(driver, 10);
+            	By elemPath = By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y");
+            	WebElement elem = wait.until(ExpectedConditions.presenceOfElementLocated(elemPath));
+            	wait.until(ExpectedConditions.elementToBeClickable(elem));
+            	WebElement element = driver.findElement(By.id("REQD.P.WFM_EARLY_STAFF_FLAG_Y"));
+            	System.out.println("RECORD ["+id+"] - PROJECT ID ["+requestIdStr+"] >> [Early Staffing >> Yes]");
+            	return element;
+            	}
+            	}catch (Exception e) {
+            	driver.navigate().refresh();
+            	System.out.println("[WAITING] Ready for Approval");
+            	}
+            	}
+            	return null;
+            	}
+   
+    
 	public static boolean positionId() {
 		for (int x = 0; x < 20; x++) {
 		try {

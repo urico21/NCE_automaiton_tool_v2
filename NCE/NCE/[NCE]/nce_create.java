@@ -537,7 +537,7 @@ public class nce_create {
 				Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
 				DropDown.selectByIndex(0);
 				DropDown.selectByVisibleText(dataList.get(43));
-				
+				System.out.println(element.isSelected());
             	}
         	else {
             	//Early Staffing Indicator to Yes
@@ -549,7 +549,7 @@ public class nce_create {
 				Select DropDown = new Select(driver.findElement(By.id("REQD.P.CLIENT_INTRW")));
 				DropDown.selectByIndex(0);
 				DropDown.selectByVisibleText(dataList.get(43));
-            	            	
+				System.out.println(element.isSelected());           	
             	}
     	   }catch(Exception e) {
     		   System.out.println("Contractually constraint button not found/Client interview drop down not found");

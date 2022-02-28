@@ -183,6 +183,7 @@ public class nce_extension {
 							                	statusElemWait();currentStatus = statusWait();
 							                	//CHECK IF STATUS AFTER MAIN METHOD | In Planning
 							                	if(currentStatus.trim().contains("In Planning")) {
+							                		Thread.sleep(300);
 							                		System.out.println("RECORD ["+id+"] - REQUEST ID ["+requestIdStr+"] >> " + currentStatus);
 							                		completePLM().click();
 							                	}
